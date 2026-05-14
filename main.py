@@ -7,7 +7,7 @@ import os
 import json
 import random
 import joblib
-
+from fastapi.middleware.cors import CORSMiddleware
 from sklearn.metrics.pairwise import cosine_similarity
 
 from groq import Groq
@@ -118,6 +118,13 @@ YES_WORDS = WORDS["yes"]
 NO_WORDS = WORDS["no"]
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Input(BaseModel):
 
