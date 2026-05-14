@@ -1,0 +1,119 @@
+{
+"yes":[
+"yes","y","yeah","yep","yup","yea","ya","yaa","yup","yupp","yupss",
+"yess","yesss","yessss","yessir","yes sir","yes maam","yes mam",
+"yes please","yes of course","yes definitely","yes absolutely",
+
+"i do","i do have","i have","i have it","i have this",
+"i experience it","i feel it","i get it","i face it",
+"i am","i am experiencing","i am having","i’m having","im having",
+"i’m experiencing","im experiencing","i’m feeling","im feeling",
+
+"yeah i do","yep i do","yup i do","yeah i have","yep i have","yup i have",
+"yeah i feel it","yep i feel it","yup i feel it",
+
+"of course","ofcourse","ofc","sure","surely","definitely","absolutely",
+"certainly","indeed","affirmative","roger","roger that","copy that",
+"got it","understood","noted","ack","acknowledged",
+
+"i think so","i guess so","i believe so","seems so","looks like it",
+"probably yes","maybe yes","kind of","kinda yes","sort of yes",
+
+"why not","ok","okay","kk","k","alright","all right","fine","cool",
+"great","works","works for me","sounds good","sounds right",
+"makes sense",
+
+"true","correct","right","exactly","totally","totally yes",
+"100%","100 percent","for sure","for certain","by all means",
+
+"yeah sure","yep sure","yup sure","yes sure",
+"yeah yeah","yes yes","yup yup","yep yep",
+
+"haan","ha","haanji","hanji","hmm yes","hmm yeah",
+"uh huh","uh-huh","mmhmm","mhmm","hmmm","hmmm yes","hmmm yeah",
+
+"ok yes","ok yeah","okay yes","okay yeah",
+"fine yes","alright yes",
+
+"i also have","i also feel","i have that too","same here","me too",
+"same","yes same","yeah same","yep same","yup same"
+    ],
+"no": [
+"no","n","nope","nah","naa","na","nop","nopp",
+"nooo","noooo","nopeee","nahh","nahhh",
+
+"no i don't","i don't","i dont","i do not",
+"i don't have","i dont have","i do not have",
+"i don't feel it","i dont feel it","i do not feel it",
+"i’m not","im not","i am not","i’m not experiencing","im not experiencing",
+
+"not really","not at all","not much","not exactly",
+"no not really","no not at all","nope not really",
+
+"never","no way","no way!","absolutely not","definitely not",
+"for sure not","not at all man","no chance",
+
+"i don't think so","dont think so","i doubt it","unlikely",
+"probably not","guess not","i guess not","i think not",
+
+"no thanks","no thank you","not interested",
+
+"nah bro","nah man","nah dude",
+"nope bro","nope man",
+
+"wrong","incorrect","false","not correct",
+
+"no no","nah nah","nope nope",
+
+"umm no","uh no","hmm no","hmmm no",
+
+"none","nothing","negative",
+
+"i don't have that","i dont have that",
+"i don't have this","i dont have this",
+"i’m fine","im fine","i am fine",
+"i feel fine","feeling fine","all good",
+"no issues","no problem","no symptoms",
+
+"not me","doesn't happen","doesnt happen"
+],
+    "fillers": [
+"i","me","my","mine","we","us","our","ours",
+"you","your","yours",
+"he","she","it","they","them","their","theirs",
+
+"a","an","the",
+
+"is","am","are","was","were","be","been","being",
+"do","does","did",
+"have","has","had",
+
+"will","would","shall","should","can","could","may","might","must",
+
+"to","of","in","on","at","by","for","with","about","against",
+"between","into","through","during","before","after","above","below",
+"from","up","down","out","off","over","under","again","further",
+
+"and","or","but","so","because","if","while","although","though",
+
+"this","that","these","those",
+
+"there","here","where","when","why","how",
+
+"very","just","really","basically","actually","literally","simply",
+"honestly","frankly","seriously",
+
+"um","uh","hmm","hmmm","huh","hmmmmm",
+"like","you know","kinda","kind of","sort of",
+"maybe","perhaps",
+
+"ok","okay","alright","right","fine","cool",
+
+"also","too","as well","then","so yeah","so no",
+
+"bro","man","dude","bhai",
+
+"yes","yeah","yep","yup",
+"no","nope","nah"
+    ]
+}

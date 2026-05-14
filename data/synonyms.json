@@ -1,0 +1,301 @@
+{
+    "constipation": [
+     "cannot poop",
+     "cant poop",
+     "unable to poop",
+     "difficulty passing stool",
+     "hard stool",
+     "no bowel movement"
+  ],
+  "stool": ["poop", "feces", "motion"],
+  "stomach": ["tummy", "abdomen", "belly"],
+  "pain": ["ache", "hurts", "hurting"],
+  "fever": ["high temperature", "body hot"],
+  "vomiting": [
+    "throwing up",
+    "throw up",
+    "vomit",
+    "puking",
+    "puke",
+    "throwing up again",
+    "throwing up repeatedly"
+  ],
+  "nausea": ["feel like vomiting", "urge to vomit"],
+  "weakness": ["fatigue", "low energy", "tired"],
+  "cough": ["coughing"],
+  "urination": ["pee", "urine"],
+  "bloating": ["gas", "fullness"],
+  "diarrhea": [
+    "loose motion",
+    "loose motions",
+    "watery stool",
+    "frequent loose stool"
+  ],
+  "worm infestation": [
+    "worms in stool",
+    "anal itching",
+    "worms visible"
+  ],
+  "cough": [
+    "coughing",
+    "cough",
+    "dry cough",
+    "wet cough",
+    "persistent cough",
+    "continuous cough"
+  ],
+
+    "abdominal pain": [
+        "my stomach hurts", "pain in my stomach", "i have stomach pain",
+        "my belly is hurting", "pain in my abdomen", "stomach is paining",
+        "my lower stomach hurts", "pain in belly area",
+        "my stomach is hurting badly", "stomach pain is there"
+    ],
+
+    "severe abdominal pain": [
+        "very bad stomach pain", "extreme stomach pain",
+        "my stomach pain is unbearable", "severe pain in abdomen",
+        "intense stomach pain", "pain is too much in stomach",
+        "my belly hurts a lot", "very sharp stomach pain",
+        "stomach pain is getting worse", "really bad stomach pain"
+    ],
+
+    "colicky abdominal pain": [
+        "stomach pain comes and goes", "pain in stomach in waves",
+        "cramps in stomach", "on and off stomach pain",
+        "pain keeps coming back in stomach", "sudden stomach pain",
+        "cramping pain in abdomen", "pain not constant in stomach",
+        "pain comes and goes", "twisting pain in stomach"
+    ],
+
+    "abdominal distension": [
+        "my stomach looks swollen", "stomach is bloated",
+        "my belly is puffed up", "abdomen feels stretched",
+        "stomach feels tight", "belly looks bigger than usual",
+        "stomach feels expanded", "swelling in stomach",
+        "abdomen feels enlarged", "stomach feels inflated"
+    ],
+
+    "loss of appetite": [
+        "i don't feel like eating", "no appetite",
+        "not feeling hungry", "i am not hungry at all",
+        "no desire to eat", "food doesn't feel appealing",
+        "i am not able to eat", "i feel full without eating",
+        "lost my appetite", "don't want to eat anything"
+    ],
+
+    "indigestion": [
+        "food is not digesting", "i feel heavy after eating",
+        "digestion is bad", "i have digestion problem",
+        "stomach feels heavy after food",
+        "food is sitting in my stomach",
+        "uncomfortable after eating",
+        "stomach upset after meals",
+        "not digesting properly", "digestion issue"
+    ],
+
+    "high fever": [
+        "very high temperature", "burning with fever",
+        "body is very hot", "high fever is there",
+        "temperature is very high", "fever is too much",
+        "burning fever feeling", "high body temperature",
+        "fever is severe", "very strong fever"
+    ],
+
+    "low grade fever": [
+        "mild fever", "slight fever",
+        "little fever", "not very high fever",
+        "low fever", "body slightly warm",
+        "fever is not too high", "mild temperature",
+        "fever is light", "slightly feverish"
+    ],
+
+    "fatigue": [
+        "i feel very tired", "no energy at all",
+        "i am exhausted", "feeling drained",
+        "i feel weak and tired", "low energy feeling",
+        "i get tired easily", "no strength in body",
+        "body feels very tired", "always feeling tired"
+    ],
+
+    "weakness": [
+        "i feel weak", "body feels weak",
+        "no strength", "very weak feeling",
+        "i can't stand properly", "feeling low strength",
+        "my body has no energy", "weak all the time",
+        "strength is gone", "i feel very low"
+    ],
+
+    "joint pain": [
+        "pain in joints", "my joints hurt",
+        "joint pain is there", "pain in knees and joints",
+        "joints are hurting", "pain while moving joints",
+        "joint pain while walking", "pain in elbow joints",
+        "stiff joint pain", "joint discomfort"
+    ],
+
+    "joint swelling": [
+        "joints are swollen", "swelling in joints",
+        "my joints look swollen", "joint swelling is there",
+        "puffy joints", "swollen knees",
+        "joint area is enlarged", "swelling near joints",
+        "joints look bigger", "inflammation in joints"
+    ],
+
+    "headache": [
+        "i have headache", "pain in my head",
+        "my head hurts", "head is paining",
+        "pain in forehead", "heavy head feeling",
+        "pressure in head", "head pain is there",
+        "my head is hurting badly", "continuous headache"
+    ],
+
+    "severe headache": [
+        "very bad headache", "extreme head pain",
+        "unbearable headache", "severe pain in head",
+        "headache is too much", "intense headache",
+        "really bad head pain", "head is hurting a lot",
+        "strong headache", "pain in head is severe"
+    ],
+
+    "cough with phlegm": [
+        "cough with mucus", "phlegm while coughing",
+        "coughing up mucus", "wet cough with phlegm",
+        "mucus coming with cough", "sticky cough",
+        "cough with sputum", "phlegm in throat with cough",
+        "productive cough", "thick mucus cough"
+    ],
+
+    "dry cough": [
+        "dry cough", "no mucus cough",
+        "cough without phlegm", "irritating dry cough",
+        "constant dry cough", "tickling cough",
+        "dry throat cough", "persistent dry cough",
+        "non productive cough", "dry cough not stopping"
+    ],
+    "flatulence": [
+        "passing gas a lot", "too much gas coming out",
+        "i am farting a lot", "excess gas release",
+        "gas keeps coming out", "frequent gas passing",
+        "i have too much gas", "gas problem is high",
+        "passing gas again and again", "uncontrolled gas release"
+    ],
+
+    "retention of gases": [
+        "gas is not passing", "gas stuck in stomach",
+        "feeling gas but not releasing", "trapped gas in stomach",
+        "unable to pass gas", "gas is building up",
+        "stomach feels blocked with gas", "gas not coming out",
+        "pressure due to gas inside", "gas is stuck inside"
+    ],
+
+    "eructation": [
+        "burping a lot", "frequent burping",
+        "i keep burping", "too much burp",
+        "belching again and again", "gas coming out from mouth",
+        "constant burping", "burping continuously",
+        "excess burps", "i am burping a lot"
+    ],
+
+    "sour eructation": [
+        "sour burps", "acidic burping",
+        "burp tastes sour", "sour taste while burping",
+        "acid burps", "burning burps",
+        "burps with sour taste", "bad taste burps",
+        "acid coming up with burp", "sour belching"
+    ],
+
+    "acid reflux": [
+        "acid coming up", "burning in chest after eating",
+        "food coming back up", "acid going up throat",
+        "heartburn feeling", "burning in chest",
+        "sour liquid in throat", "reflux problem",
+        "acid rising in chest", "burning after meals"
+    ],
+
+    "burning sensation": [
+        "burning feeling in body", "skin feels like burning",
+        "burning inside", "burning pain",
+        "heat feeling in body", "burning sensation is there",
+        "body feels like it's burning", "internal burning feeling",
+        "burning discomfort", "hot burning feeling"
+    ],
+
+    "excessive thirst": [
+        "feeling very thirsty", "thirsty all the time",
+        "need to drink water again and again",
+        "always feeling thirsty", "extreme thirst",
+        "mouth feels dry often", "constant thirst",
+        "drinking water frequently", "never satisfied thirst",
+        "very high thirst"
+    ],
+
+    "blood in stool": [
+        "blood while passing stool", "blood in poop",
+        "i see blood in stool", "stool has blood",
+        "bleeding during motion", "red blood in stool",
+        "blood coming out while pooping",
+        "blood mixed in stool", "bloody stool",
+        "passing blood with stool"
+    ],
+
+    "mucoid stool": [
+        "mucus in stool", "sticky stool",
+        "slimy stool", "jelly like stool",
+        "stool has mucus", "mucus coming with stool",
+        "slippery stool", "thick mucus in stool",
+        "gel like substance in stool", "mucus mixed stool"
+    ],
+
+    "foul-smelling stool": [
+        "stool smells very bad", "very bad smell in stool",
+        "foul smell from stool", "stool has strong odor",
+        "poop smells horrible", "very stinky stool",
+        "unusual bad smell in stool", "stool odor is too strong",
+        "smelly stool problem", "extremely foul stool smell"
+    ],
+
+    "rectal prolapse": [
+        "something coming out of anus", "rectum coming out",
+        "fleshy part coming out while passing stool",
+        "part of anus coming out", "protrusion from anus",
+        "something bulging out near anus",
+        "rectal part coming outside", "anus swelling coming out",
+        "tissue coming out while pooping",
+        "something hanging from anus"
+    ],
+
+    "anal swelling": [
+        "swelling near anus", "anus is swollen",
+        "painful swelling in anal area", "lump near anus",
+        "anus area is swollen", "inflamed anus",
+        "swelling around rectum", "anal area looks swollen",
+        "puffy anus", "swelling with pain near anus"
+    ],
+
+    "pain during defecation": [
+        "pain while passing stool", "it hurts when i poop",
+        "pain during motion", "stool passing is painful",
+        "pain while pooping", "burning while passing stool",
+        "discomfort during bowel movement",
+        "pain in anus while passing stool",
+        "sharp pain while pooping", "painful bowel movement"
+    ],
+
+    "yellow discoloration": [
+        "skin turning yellow", "eyes becoming yellow",
+        "yellowish skin color", "yellow tint in eyes",
+        "body looks yellow", "yellowing of skin",
+        "eyes look yellowish", "yellow color in body",
+        "skin has yellow shade", "yellow discoloration in eyes"
+    ],
+
+    "weight loss": [
+        "losing weight", "sudden weight loss",
+        "weight going down", "getting thinner",
+        "losing weight without trying",
+        "body weight is decreasing", "unintentional weight loss",
+        "becoming skinny", "weight dropping fast",
+        "losing body weight"
+    ]
+}

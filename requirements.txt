@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+openpyxl
+groq
+joblib
+python-multipart

@@ -1,0 +1,1433 @@
+{
+  "burns and scalds": [
+    {
+      "question": "Does your skin look discolored and shriveled after the burn?",
+      "symptom": "skin discolored shriveled"
+    },
+    {
+      "question": "Do you have blisters and redness on the affected skin?",
+      "symptom": "blisters redness"
+    },
+    {
+      "question": "Is there pus coming out from the burned area?",
+      "symptom": "pus discharge burn"
+    },
+    {
+      "question": "Did you experience fever with strong thirst after the burn?",
+      "symptom": "fever thirst"
+    },
+    {
+      "question": "Did you lose consciousness after the burn?",
+      "symptom": "unconsciousness"
+    }
+  ],
+  "indigestion": [
+    {
+      "question": "Do you get sour burps after eating?",
+      "symptom": "sour burps"
+    },
+    {
+      "question": "Do you feel heaviness in your abdomen?",
+      "symptom": "abdominal heaviness"
+    },
+    {
+      "question": "Do you have excess saliva in your mouth?",
+      "symptom": "excess saliva"
+    },
+    {
+      "question": "Do you feel that food stays undigested in your stomach?",
+      "symptom": "undigested food"
+    },
+    {
+      "question": "Do you have gas trapped in your stomach?",
+      "symptom": "trapped gas"
+    }
+  ],
+  "diarrhea": [
+    {
+      "question": "Do you pass slimy and foul-smelling stool?",
+      "symptom": "slimy foul stool"
+    },
+    {
+      "question": "Does your stool contain blood?",
+      "symptom": "blood in stool"
+    },
+    {
+      "question": "Do you feel a burning sensation in your body?",
+      "symptom": "burning sensation body"
+    },
+    {
+      "question": "Do you feel very thirsty frequently?",
+      "symptom": "excessive thirst"
+    },
+    {
+      "question": "Do you have gripping pain in your abdomen?",
+      "symptom": "gripping abdominal pain"
+    }
+  ],
+  "prolapsus ani": [
+    {
+      "question": "Do you notice a part of your rectum coming out?",
+      "symptom": "rectum protrusion"
+    },
+    {
+      "question": "Does the rectum come out after passing stool?",
+      "symptom": "protrusion after stool"
+    },
+    {
+      "question": "Do you feel something bulging out from your rectum?",
+      "symptom": "rectal bulge"
+    },
+    {
+      "question": "Do you see visible rectal tissue outside?",
+      "symptom": "visible rectal tissue"
+    },
+    {
+      "question": "Does this happen after frequent bowel movements?",
+      "symptom": "frequent motions prolapse"
+    }
+  ],
+  "dysentery": [
+    {
+      "question": "Do you pass slimy stool with strain?",
+      "symptom": "slimy stool strain"
+    },
+    {
+      "question": "Does your stool contain blood?",
+      "symptom": "blood stool strain"
+    },
+    {
+      "question": "Do you feel gripping pain while passing stool?",
+      "symptom": "gripping pain stool"
+    },
+    {
+      "question": "Do you feel a burning sensation during stool?",
+      "symptom": "burning stool"
+    },
+    {
+      "question": "Do you experience strain while passing stool?",
+      "symptom": "straining stool"
+    }
+  ],
+  "internal abscess": [
+    {
+      "question": "Do you have swelling with pus discharge?",
+      "symptom": "swelling pus discharge"
+    },
+    {
+      "question": "Do you have difficulty passing gas?",
+      "symptom": "gas obstruction"
+    },
+    {
+      "question": "Do you have trouble passing urine?",
+      "symptom": "difficulty urination"
+    },
+    {
+      "question": "Do you experience frequent hiccups with bloating?",
+      "symptom": "hiccups bloating"
+    },
+    {
+      "question": "Do you feel difficulty breathing properly?",
+      "symptom": "breathing difficulty"
+    }
+  ],
+  "hernia": [
+    {
+      "question": "Do you notice a swelling that comes out and goes back when pressed?",
+      "symptom": "reducible swelling"
+    },
+    {
+      "question": "Do you feel a bulge that reappears after pressing it back?",
+      "symptom": "reappearing bulge"
+    },
+    {
+      "question": "Does the swelling reduce when you apply pressure?",
+      "symptom": "swelling reduces pressure"
+    },
+    {
+      "question": "Do you notice a protrusion that disappears and comes back again?",
+      "symptom": "intermittent protrusion"
+    },
+    {
+      "question": "Do you feel a soft lump that can be pushed inside?",
+      "symptom": "pushable lump"
+    }
+  ],
+  "appendicitis": [
+    {
+      "question": "Did your abdominal pain shift to the lower right side?",
+      "symptom": "right lower abdominal pain"
+    },
+    {
+      "question": "Do you feel nauseous?",
+      "symptom": "nausea"
+    },
+    {
+      "question": "Are you experiencing repeated vomiting?",
+      "symptom": "repeated vomiting"
+    },
+    {
+      "question": "Do you have constipation?",
+      "symptom": "constipation"
+    },
+    {
+      "question": "Do you have fever?",
+      "symptom": "fever"
+    }
+  ],
+  "epilepsy": [
+    {
+      "question": "Do you experience sudden repeated attacks?",
+      "symptom": "sudden attacks"
+    },
+    {
+      "question": "Do you see things that are not real?",
+      "symptom": "visual hallucinations"
+    },
+    {
+      "question": "Do you suddenly fall down without control?",
+      "symptom": "sudden fall"
+    },
+    {
+      "question": "Do you have foam coming out of your mouth?",
+      "symptom": "mouth foaming"
+    },
+    {
+      "question": "Do your hands and feet jerk uncontrollably?",
+      "symptom": "limb jerking"
+    }
+  ],
+  "hyperacidity": [
+    {
+      "question": "Do you get bitter or sour burps?",
+      "symptom": "bitter sour burps"
+    },
+    {
+      "question": "Do you feel burning in your throat and chest?",
+      "symptom": "throat chest burning"
+    },
+    {
+      "question": "Do you feel nauseous frequently?",
+      "symptom": "nausea"
+    },
+    {
+      "question": "Have you lost your appetite?",
+      "symptom": "loss of appetite"
+    },
+    {
+      "question": "Do you feel heaviness in your body?",
+      "symptom": "body heaviness"
+    }
+  ],
+  
+  "anorexia": [
+    {
+      "question": "Do you have no appetite and don’t feel like eating anything?",
+      "symptom": "no appetite"
+    },
+    {
+      "question": "Do your teeth feel sensitive while eating?",
+      "symptom": "teeth sensitivity"
+    },
+    {
+      "question": "Do you feel an astringent taste in your mouth?",
+      "symptom": "astringent taste"
+    },
+    {
+      "question": "Do you notice a sour or acidic taste in your mouth?",
+      "symptom": "sour acidic taste"
+    },
+    {
+      "question": "Do you have a foul smell coming from your mouth?",
+      "symptom": "foul breath"
+    }
+  ],
+  "tumour": [
+    {
+      "question": "Do you have a large round swelling that feels deep and does not move?",
+      "symptom": "deep fixed swelling"
+    },
+    {
+      "question": "Is the lump mostly painless in the beginning?",
+      "symptom": "painless early lump"
+    },
+    {
+      "question": "Is the swelling growing slowly over time?",
+      "symptom": "slow growth swelling"
+    },
+    {
+      "question": "Does the lump not produce any pus or discharge?",
+      "symptom": "no pus discharge"
+    },
+    {
+      "question": "Is the swelling raised and visible on the body?",
+      "symptom": "raised visible lump"
+    }
+  ],
+  "haemorrhoid, piles": [
+    {
+      "question": "Do you have a fleshy swelling around your anus?",
+      "symptom": "fleshy anal swelling"
+    },
+    {
+      "question": "Do you feel blockage when trying to pass gas?",
+      "symptom": "gas blockage"
+    },
+    {
+      "question": "Do you feel sharp pain in the anal area during stool?",
+      "symptom": "anal pain stool"
+    },
+    {
+      "question": "Do you notice bleeding while passing stool?",
+      "symptom": "bleeding stool"
+    },
+    {
+      "question": "Do you feel swelling or lump near the anus?",
+      "symptom": "anal lump"
+    }
+  ],
+  "burning sensation disorder": [
+    {
+      "question": "Do you feel a burning sensation in your body?",
+      "symptom": "body burning"
+    },
+    {
+      "question": "Do you feel heat inside your body frequently?",
+      "symptom": "internal heat"
+    },
+    {
+      "question": "Do you experience dryness along with burning?",
+      "symptom": "burning dryness"
+    },
+    {
+      "question": "Do you feel intense heat and discomfort in your body?",
+      "symptom": "intense heat"
+    },
+    {
+      "question": "Do you feel burning sensation throughout your body?",
+      "symptom": "whole body burning"
+    }
+  ],
+  "constipation": [
+    {
+      "question": "Do you have difficulty passing stool?",
+      "symptom": "difficulty stool"
+    },
+    {
+      "question": "Do you pass hard stool?",
+      "symptom": "hard stool"
+    },
+    {
+      "question": "Do you feel blockage while passing stool?",
+      "symptom": "stool blockage"
+    },
+    {
+      "question": "Do you pass stool less frequently than usual?",
+      "symptom": "infrequent stool"
+    },
+    {
+      "question": "Do you strain while passing stool?",
+      "symptom": "straining stool"
+    }
+  ],
+  "cough": [
+    {
+      "question": "Do you have frequent coughing episodes?",
+      "symptom": "frequent cough"
+    },
+    {
+      "question": "Does your cough produce mucus?",
+      "symptom": "mucus cough"
+    },
+    {
+      "question": "Do you cough more at night?",
+      "symptom": "night cough"
+    },
+    {
+      "question": "Do you feel throat irritation while coughing?",
+      "symptom": "throat irritation cough"
+    },
+    {
+      "question": "Has your cough lasted for many days?",
+      "symptom": "persistent cough"
+    }
+  ],
+  "deafness": [
+    {
+      "question": "Do you have difficulty hearing normal sounds?",
+      "symptom": "hearing difficulty"
+    },
+    {
+      "question": "Do you hear muffled sounds?",
+      "symptom": "muffled hearing"
+    },
+    {
+      "question": "Do you feel blockage in your ears?",
+      "symptom": "ear blockage"
+    },
+    {
+      "question": "Do you often ask people to repeat what they say?",
+      "symptom": "repeat hearing"
+    },
+    {
+      "question": "Do you experience ringing in your ears?",
+      "symptom": "ear ringing"
+    }
+  ],
+  "earache": [
+    {
+      "question": "Do you feel pain inside your ear?",
+      "symptom": "ear pain"
+    },
+    {
+      "question": "Do you feel discomfort in your ear?",
+      "symptom": "ear discomfort"
+    },
+    {
+      "question": "Do you feel pressure inside your ear?",
+      "symptom": "ear pressure"
+    },
+    {
+      "question": "Do you notice irritation in your ear?",
+      "symptom": "ear irritation"
+    },
+    {
+      "question": "Do you feel sensitivity in your ear?",
+      "symptom": "ear sensitivity"
+    }
+  ],
+  "ear sepsis": [
+    {
+      "question": "Do you have pus discharge from your ear?",
+      "symptom": "ear pus discharge"
+    },
+    {
+      "question": "Do you notice foul smell from your ear?",
+      "symptom": "ear foul smell"
+    },
+    {
+      "question": "Do you feel swelling in your ear?",
+      "symptom": "ear swelling"
+    },
+    {
+      "question": "Do you have fever along with ear issues?",
+      "symptom": "ear fever"
+    },
+    {
+      "question": "Do you feel blockage in your ear?",
+      "symptom": "ear blockage infection"
+    }
+  ],
+  "eczema of the scrotum": [
+    {
+      "question": "Do you have itching in the scrotum area?",
+      "symptom": "scrotal itching"
+    },
+    {
+      "question": "Do you notice pimples or eruptions on the scrotum?",
+      "symptom": "scrotal eruptions"
+    },
+    {
+      "question": "Do you see discharge from the affected area?",
+      "symptom": "scrotal discharge"
+    },
+    {
+      "question": "Do you feel wetness in the scrotum region?",
+      "symptom": "scrotal wetness"
+    },
+    {
+      "question": "Do you notice redness in the scrotum area?",
+      "symptom": "scrotal redness"
+    }
+  ],
+  "enlarged prostate": [
+    {
+      "question": "Do you have difficulty passing urine?",
+      "symptom": "difficulty urination"
+    },
+    {
+      "question": "Do you feel obstruction while urinating?",
+      "symptom": "urine obstruction"
+    },
+    {
+      "question": "Do you pass urine slowly?",
+      "symptom": "slow urination"
+    },
+    {
+      "question": "Do you feel like urine is not passing completely?",
+      "symptom": "incomplete urination"
+    },
+    {
+      "question": "Do you have frequent urge to urinate?",
+      "symptom": "frequent urination"
+    }
+  ],
+  "enlargement of liver and spleen": [
+    {
+      "question": "Do you feel swelling in your abdomen?",
+      "symptom": "abdominal swelling"
+    },
+    {
+      "question": "Do you feel heaviness in your abdomen?",
+      "symptom": "abdominal heaviness"
+    },
+    {
+      "question": "Do you notice a lump in your abdomen?",
+      "symptom": "abdominal lump"
+    },
+    {
+      "question": "Do you feel discomfort in the upper abdomen?",
+      "symptom": "upper abdominal discomfort"
+    },
+    {
+      "question": "Do you feel fullness in your stomach?",
+      "symptom": "abdominal fullness"
+    }
+  ],
+  "erythema, napkin rash, sour buttocks": [
+    {
+      "question": "Do you notice redness in the buttock area?",
+      "symptom": "buttock redness"
+    },
+    {
+      "question": "Do you feel irritation in the diaper area?",
+      "symptom": "diaper irritation"
+    },
+    {
+      "question": "Do you notice rashes on the buttocks?",
+      "symptom": "buttock rash"
+    },
+    {
+      "question": "Do you feel burning in the affected area?",
+      "symptom": "buttock burning"
+    },
+    {
+      "question": "Do you notice moisture or wetness in that area?",
+      "symptom": "buttock wetness"
+    }
+  ],
+  "excessive thirst": [
+    {
+      "question": "Do you feel very thirsty all the time?",
+      "symptom": "constant thirst"
+    },
+    {
+      "question": "Does your throat feel dry frequently?",
+      "symptom": "dry throat"
+    },
+    {
+      "question": "Do you feel the need to drink water again and again?",
+      "symptom": "frequent drinking urge"
+    },
+    {
+      "question": "Does your mouth feel dry often?",
+      "symptom": "dry mouth"
+    },
+    {
+      "question": "Do you feel dehydration in your body?",
+      "symptom": "dehydration"
+    }
+  ],
+  "fever": [
+    {
+      "question": "Do you feel an increase in body temperature?",
+      "symptom": "high temperature"
+    },
+    {
+      "question": "Do you feel weakness along with fever?",
+      "symptom": "fever weakness"
+    },
+    {
+      "question": "Do you feel heat in your body?",
+      "symptom": "body heat"
+    },
+    {
+      "question": "Do you feel thirsty during fever?",
+      "symptom": "fever thirst"
+    },
+    {
+      "question": "Do you feel dryness in your throat?",
+      "symptom": "dry throat fever"
+    }
+  ],
+  "fracture of bone": [
+    {
+      "question": "Did you experience sudden injury before this?",
+      "symptom": "injury history"
+    },
+    {
+      "question": "Do you notice swelling at a specific bone area?",
+      "symptom": "bone swelling"
+    },
+    {
+      "question": "Do you feel inability to move the affected part?",
+      "symptom": "restricted movement"
+    },
+    {
+      "question": "Do you notice deformity in the affected area?",
+      "symptom": "bone deformity"
+    },
+    {
+      "question": "Do you hear a cracking sound during injury?",
+      "symptom": "crack sound"
+    }
+  ],
+  "furunculosis": [
+    {
+      "question": "Do you notice boils on your skin?",
+      "symptom": "skin boils"
+    },
+    {
+      "question": "Do you see pus-filled swellings on your skin?",
+      "symptom": "pus swellings"
+    },
+    {
+      "question": "Do the boils appear repeatedly?",
+      "symptom": "recurrent boils"
+    },
+    {
+      "question": "Do you notice redness around the boils?",
+      "symptom": "boil redness"
+    },
+    {
+      "question": "Do the swellings increase in size over time?",
+      "symptom": "growing boils"
+    }
+  ],
+  "generalized syphilis": [
+    {
+      "question": "Do you notice skin rashes over your body?",
+      "symptom": "body rash"
+    },
+    {
+      "question": "Do you have ulcers on your body?",
+      "symptom": "body ulcers"
+    },
+    {
+      "question": "Do you feel weakness in your body?",
+      "symptom": "body weakness"
+    },
+    {
+      "question": "Do you notice swelling in lymph nodes?",
+      "symptom": "lymph swelling"
+    },
+    {
+      "question": "Do you experience fever along with these symptoms?",
+      "symptom": "syphilis fever"
+    }
+  ],
+  "glandular fever (plague type)": [
+    {
+      "question": "Do you have swelling in your glands?",
+      "symptom": "gland swelling"
+    },
+    {
+      "question": "Do you feel high fever?",
+      "symptom": "high fever"
+    },
+    {
+      "question": "Do you feel weakness in your body?",
+      "symptom": "weakness"
+    },
+    {
+      "question": "Do you notice pain in swollen glands?",
+      "symptom": "gland pain"
+    },
+    {
+      "question": "Do you feel chills along with fever?",
+      "symptom": "fever chills"
+    }
+  ],
+  "goitre": [
+    {
+      "question": "Do you notice swelling in your neck?",
+      "symptom": "neck swelling"
+    },
+    {
+      "question": "Do you feel a lump in your throat area?",
+      "symptom": "throat lump"
+    },
+    {
+      "question": "Do you have difficulty swallowing?",
+      "symptom": "difficulty swallowing"
+    },
+    {
+      "question": "Do you feel tightness in your neck?",
+      "symptom": "neck tightness"
+    },
+    {
+      "question": "Do you notice visible enlargement in your neck?",
+      "symptom": "neck enlargement"
+    }
+  ],
+  "granthika jvara": [
+    {
+      "question": "Do you have swelling in glands along with fever?",
+      "symptom": "gland swelling fever"
+    },
+    {
+      "question": "Do you feel hardness in swollen glands?",
+      "symptom": "hard gland swelling"
+    },
+    {
+      "question": "Do you notice painful gland enlargement?",
+      "symptom": "painful glands"
+    },
+    {
+      "question": "Do you have fever with localized swelling?",
+      "symptom": "fever localized swelling"
+    },
+    {
+      "question": "Do you feel heaviness in areas with gland swelling?",
+      "symptom": "gland heaviness"
+    }
+  ],
+  "haemoptysis": [
+    {
+      "question": "Do you cough up blood?",
+      "symptom": "coughing blood"
+    },
+    {
+      "question": "Do you notice blood in your sputum?",
+      "symptom": "blood sputum"
+    },
+    {
+      "question": "Do you have coughing along with blood discharge?",
+      "symptom": "cough blood discharge"
+    },
+    {
+      "question": "Do you feel throat irritation with blood while coughing?",
+      "symptom": "bloody cough irritation"
+    },
+    {
+      "question": "Do you see red-colored mucus while coughing?",
+      "symptom": "red mucus cough"
+    }
+  ],
+  "hard and soft chancre, syphilis": [
+    {
+      "question": "Do you notice ulcers in the genital area?",
+      "symptom": "genital ulcers"
+    },
+    {
+      "question": "Do you have hard painless sores?",
+      "symptom": "hard painless sores"
+    },
+    {
+      "question": "Do you notice soft painful ulcers?",
+      "symptom": "soft painful ulcers"
+    },
+    {
+      "question": "Do you see discharge from genital sores?",
+      "symptom": "genital discharge"
+    },
+    {
+      "question": "Do you notice swelling in nearby lymph nodes?",
+      "symptom": "genital lymph swelling"
+    }
+  ],
+  "hoarseness": [
+    {
+      "question": "Is your voice rough or unclear?",
+      "symptom": "rough voice"
+    },
+    {
+      "question": "Do you have difficulty speaking clearly?",
+      "symptom": "unclear speech"
+    },
+    {
+      "question": "Does your voice sound weak or low?",
+      "symptom": "weak voice"
+    },
+    {
+      "question": "Do you lose your voice occasionally?",
+      "symptom": "voice loss"
+    },
+    {
+      "question": "Do you feel strain while speaking?",
+      "symptom": "voice strain"
+    }
+  ],
+  "hyperacidity": [
+    {
+      "question": "Do you get bitter or sour burps?",
+      "symptom": "bitter sour burps"
+    },
+    {
+      "question": "Do you feel burning in your throat and chest?",
+      "symptom": "throat chest burning"
+    },
+    {
+      "question": "Do you feel nausea frequently?",
+      "symptom": "nausea"
+    },
+    {
+      "question": "Do you have loss of appetite?",
+      "symptom": "loss of appetite"
+    },
+    {
+      "question": "Do you feel heaviness in your body?",
+      "symptom": "body heaviness"
+    }
+  ],
+  "indigestion": [
+    {
+      "question": "Do you get sour burps?",
+      "symptom": "sour burps"
+    },
+    {
+      "question": "Do you feel heaviness in your abdomen?",
+      "symptom": "abdominal heaviness"
+    },
+    {
+      "question": "Do you have excess saliva in your mouth?",
+      "symptom": "excess saliva"
+    },
+    {
+      "question": "Do you feel food stays undigested?",
+      "symptom": "undigested food"
+    },
+    {
+      "question": "Do you have gas trapped in your stomach?",
+      "symptom": "trapped gas"
+    }
+  ],
+  "insanity": [
+    {
+      "question": "Do you behave abnormally compared to usual?",
+      "symptom": "abnormal behavior"
+    },
+    {
+      "question": "Do you feel confused frequently?",
+      "symptom": "confusion"
+    },
+    {
+      "question": "Do you experience sudden mood changes?",
+      "symptom": "mood changes"
+    },
+    {
+      "question": "Do you talk irrelevantly or incoherently?",
+      "symptom": "irrelevant speech"
+    },
+    {
+      "question": "Do you lose awareness of surroundings?",
+      "symptom": "loss of awareness"
+    }
+  ],
+  "intestinal tuberculosis": [
+    {
+      "question": "Do you have chronic diarrhea?",
+      "symptom": "chronic diarrhea"
+    },
+    {
+      "question": "Do you notice weight loss?",
+      "symptom": "weight loss"
+    },
+    {
+      "question": "Do you feel weakness in your body?",
+      "symptom": "weakness"
+    },
+    {
+      "question": "Do you have abdominal swelling?",
+      "symptom": "abdominal swelling"
+    },
+    {
+      "question": "Do you experience fever regularly?",
+      "symptom": "persistent fever"
+    }
+  ],
+  "jaundice": [
+    {
+      "question": "Do you notice yellowing of your eyes?",
+      "symptom": "yellow eyes"
+    },
+    {
+      "question": "Does your skin appear yellowish?",
+      "symptom": "yellow skin"
+    },
+    {
+      "question": "Do you have dark-colored urine?",
+      "symptom": "dark urine"
+    },
+    {
+      "question": "Do you feel loss of appetite?",
+      "symptom": "appetite loss"
+    },
+    {
+      "question": "Do you feel weakness in your body?",
+      "symptom": "weakness"
+    }
+  ],
+  "leprosy": [
+    {
+      "question": "Do you notice patches on your skin?",
+      "symptom": "skin patches"
+    },
+    {
+      "question": "Do you feel loss of sensation in certain areas?",
+      "symptom": "loss of sensation"
+    },
+    {
+      "question": "Do you notice thickened skin areas?",
+      "symptom": "thick skin"
+    },
+    {
+      "question": "Do you feel numbness in your skin?",
+      "symptom": "numbness"
+    },
+    {
+      "question": "Do you notice deformity in affected areas?",
+      "symptom": "skin deformity"
+    }
+  ],
+  "localised abdominal tumour or swelling": [
+    {
+      "question": "Do you notice a swelling in your abdomen that stays in one place?",
+      "symptom": "localized abdominal swelling"
+    },
+    {
+      "question": "Does the abdominal swelling feel firm and fixed?",
+      "symptom": "fixed abdominal mass"
+    },
+    {
+      "question": "Do you feel a lump in your abdomen while touching it?",
+      "symptom": "palpable abdominal lump"
+    },
+    {
+      "question": "Is the swelling deep inside and not moving?",
+      "symptom": "deep non movable swelling"
+    },
+    {
+      "question": "Has the swelling increased slowly over time?",
+      "symptom": "slow growing abdominal swelling"
+    }
+  ],
+  "onychia": [
+    {
+      "question": "Do you notice swelling around your nails?",
+      "symptom": "nail swelling"
+    },
+    {
+      "question": "Is there pus forming near your nails?",
+      "symptom": "nail pus"
+    },
+    {
+      "question": "Do you see redness around your nail area?",
+      "symptom": "nail redness"
+    },
+    {
+      "question": "Do you feel infection around the nail edges?",
+      "symptom": "nail infection"
+    },
+    {
+      "question": "Is the nail area tender when touched?",
+      "symptom": "nail tenderness"
+    }
+  ],
+  "otorrhoea": [
+    {
+      "question": "Do you have discharge coming from your ear?",
+      "symptom": "ear discharge"
+    },
+    {
+      "question": "Is there pus coming out from your ear?",
+      "symptom": "ear pus"
+    },
+    {
+      "question": "Do you notice foul smell from your ear discharge?",
+      "symptom": "ear foul discharge"
+    },
+    {
+      "question": "Do you feel wetness inside your ear?",
+      "symptom": "ear wetness"
+    },
+    {
+      "question": "Do you notice continuous fluid coming from your ear?",
+      "symptom": "continuous ear discharge"
+    }
+  ],
+  "parotid gland fever": [
+    {
+      "question": "Do you have swelling near your jaw or cheeks?",
+      "symptom": "parotid swelling"
+    },
+    {
+      "question": "Do you feel pain near your ear while chewing?",
+      "symptom": "pain chewing ear area"
+    },
+    {
+      "question": "Do you have fever along with gland swelling?",
+      "symptom": "fever gland swelling"
+    },
+    {
+      "question": "Do you notice difficulty opening your mouth?",
+      "symptom": "difficulty mouth opening"
+    },
+    {
+      "question": "Do you feel tenderness in the cheek area?",
+      "symptom": "cheek tenderness"
+    }
+  ],
+  "peptic ulcer (gastric and duodenal)": [
+    {
+      "question": "Do you feel burning in your stomach?",
+      "symptom": "stomach burning"
+    },
+    {
+      "question": "Do you feel pain in your upper abdomen after eating?",
+      "symptom": "post meal abdominal pain"
+    },
+    {
+      "question": "Do you experience nausea frequently?",
+      "symptom": "frequent nausea"
+    },
+    {
+      "question": "Do you notice loss of appetite?",
+      "symptom": "loss appetite"
+    },
+    {
+      "question": "Do you feel heaviness in your stomach?",
+      "symptom": "stomach heaviness"
+    }
+  ],
+  "pleurisy": [
+    {
+      "question": "Do you feel pain while breathing?",
+      "symptom": "pain breathing"
+    },
+    {
+      "question": "Does your chest pain increase during deep breaths?",
+      "symptom": "chest pain deep breath"
+    },
+    {
+      "question": "Do you have difficulty breathing properly?",
+      "symptom": "breathing difficulty"
+    },
+    {
+      "question": "Do you feel tightness in your chest?",
+      "symptom": "chest tightness"
+    },
+    {
+      "question": "Do you have dry cough along with chest pain?",
+      "symptom": "dry cough chest pain"
+    }
+  ],
+  "prolapsus ani": [
+    {
+      "question": "Do you notice a part of your rectum coming out?",
+      "symptom": "rectum protrusion"
+    },
+    {
+      "question": "Does the rectum come out after passing stool?",
+      "symptom": "protrusion after stool"
+    },
+    {
+      "question": "Do you feel something bulging out from your rectum?",
+      "symptom": "rectal bulge"
+    },
+    {
+      "question": "Do you see visible rectal tissue outside?",
+      "symptom": "visible rectal tissue"
+    },
+    {
+      "question": "Does this happen after frequent bowel movements?",
+      "symptom": "frequent motions prolapse"
+    }
+  ],
+  "rheumatism": [
+    {
+      "question": "Do you feel swelling in your joints?",
+      "symptom": "joint swelling"
+    },
+    {
+      "question": "Do you have restricted movement in joints?",
+      "symptom": "restricted joint movement"
+    },
+    {
+      "question": "Do you feel warmth in affected joints?",
+      "symptom": "joint warmth"
+    },
+    {
+      "question": "Do you notice stiffness after rest?",
+      "symptom": "post rest stiffness"
+    },
+    {
+      "question": "Do you feel fatigue along with joint issues?",
+      "symptom": "joint fatigue"
+    }
+  ],
+  "ringworm": [
+    {
+      "question": "Do you notice circular patches on your skin?",
+      "symptom": "circular skin patches"
+    },
+    {
+      "question": "Do the patches have clear centers with raised edges?",
+      "symptom": "ring shaped lesions"
+    },
+    {
+      "question": "Do you feel itching in these patches?",
+      "symptom": "itching patches"
+    },
+    {
+      "question": "Do you see redness around the patches?",
+      "symptom": "patch redness"
+    },
+    {
+      "question": "Do the patches spread over time?",
+      "symptom": "spreading patches"
+    }
+  ],
+  "scabies": [
+    {
+      "question": "Do you feel intense itching especially at night?",
+      "symptom": "night itching"
+    },
+    {
+      "question": "Do you notice small burrows or lines on your skin?",
+      "symptom": "skin burrows"
+    },
+    {
+      "question": "Do you see rashes in finger webs or wrists?",
+      "symptom": "finger web rash"
+    },
+    {
+      "question": "Do you feel itching in multiple body areas?",
+      "symptom": "widespread itching"
+    },
+    {
+      "question": "Do you notice small bumps or eruptions on skin?",
+      "symptom": "skin eruptions"
+    }
+  ],
+  "scrofula, chronic lymphadenitis": [
+    {
+      "question": "Do you have swelling in your lymph nodes?",
+      "symptom": "lymph node swelling"
+    },
+    {
+      "question": "Do you notice painless lumps in your neck?",
+      "symptom": "neck lumps"
+    },
+    {
+      "question": "Do the swollen glands feel hard?",
+      "symptom": "hard glands"
+    },
+    {
+      "question": "Do you see pus discharge from swollen glands?",
+      "symptom": "gland pus discharge"
+    },
+    {
+      "question": "Do the swellings persist for a long time?",
+      "symptom": "chronic gland swelling"
+    }
+  ],
+  "skin infection": [
+    {
+      "question": "Do you notice redness on your skin?",
+      "symptom": "skin redness"
+    },
+    {
+      "question": "Do you see pus forming on your skin?",
+      "symptom": "skin pus"
+    },
+    {
+      "question": "Do you notice swelling in the affected area?",
+      "symptom": "skin swelling"
+    },
+    {
+      "question": "Do you feel warmth in the infected area?",
+      "symptom": "skin warmth"
+    },
+    {
+      "question": "Do you notice spreading of the infection on skin?",
+      "symptom": "spreading infection"
+    }
+  ],
+  "sprue, malabsorption syndrome": [
+    {
+      "question": "Do you pass loose stools frequently?",
+      "symptom": "frequent loose stools"
+    },
+    {
+      "question": "Do you notice weight loss over time?",
+      "symptom": "weight loss"
+    },
+    {
+      "question": "Do you feel weakness in your body?",
+      "symptom": "body weakness"
+    },
+    {
+      "question": "Do you notice undigested food in your stool?",
+      "symptom": "undigested stool"
+    },
+    {
+      "question": "Do you feel bloating in your abdomen?",
+      "symptom": "abdominal bloating"
+    }
+  ],
+  "stone in bladder": [
+    {
+      "question": "Do you feel pain while passing urine?",
+      "symptom": "pain urination"
+    },
+    {
+      "question": "Do you notice blood in your urine?",
+      "symptom": "blood urine"
+    },
+    {
+      "question": "Do you have frequent urge to urinate?",
+      "symptom": "frequent urination"
+    },
+    {
+      "question": "Do you feel obstruction while urinating?",
+      "symptom": "urine obstruction"
+    },
+    {
+      "question": "Do you pass urine in small amounts?",
+      "symptom": "low urine output"
+    }
+  ],
+  "thigh stiffness disorder": [
+    {
+      "question": "Do you feel stiffness in your thighs?",
+      "symptom": "thigh stiffness"
+    },
+    {
+      "question": "Do you have difficulty moving your legs?",
+      "symptom": "leg movement difficulty"
+    },
+    {
+      "question": "Do you feel tightness in your thigh muscles?",
+      "symptom": "thigh tightness"
+    },
+    {
+      "question": "Do you notice reduced flexibility in thighs?",
+      "symptom": "reduced flexibility thighs"
+    },
+    {
+      "question": "Do you feel heaviness in your thighs?",
+      "symptom": "thigh heaviness"
+    }
+  ],
+  "tinnitus": [
+    {
+      "question": "Do you hear ringing sounds in your ears?",
+      "symptom": "ear ringing"
+    },
+    {
+      "question": "Do you hear buzzing sounds in your ears?",
+      "symptom": "ear buzzing"
+    },
+    {
+      "question": "Do you hear sounds without external source?",
+      "symptom": "phantom sounds"
+    },
+    {
+      "question": "Do you notice continuous noise in your ears?",
+      "symptom": "continuous ear noise"
+    },
+    {
+      "question": "Do you hear humming sounds in your ears?",
+      "symptom": "ear humming"
+    }
+  ],
+  "tissue depletion disorder": [
+    {
+      "question": "Do you feel extreme weakness in your body?",
+      "symptom": "extreme weakness"
+    },
+    {
+      "question": "Do you notice weight loss over time?",
+      "symptom": "weight loss"
+    },
+    {
+      "question": "Do you feel fatigue throughout the day?",
+      "symptom": "chronic fatigue"
+    },
+    {
+      "question": "Do you notice thinning of your body?",
+      "symptom": "body thinning"
+    },
+    {
+      "question": "Do you feel lack of strength in muscles?",
+      "symptom": "muscle weakness"
+    }
+  ],
+  "tonsillitis": [
+    {
+      "question": "Do you feel pain while swallowing?",
+      "symptom": "pain swallowing"
+    },
+    {
+      "question": "Do you notice swelling in your throat?",
+      "symptom": "throat swelling"
+    },
+    {
+      "question": "Do you have fever along with throat issues?",
+      "symptom": "throat fever"
+    },
+    {
+      "question": "Do you see white patches on tonsils?",
+      "symptom": "tonsil patches"
+    },
+    {
+      "question": "Do you feel difficulty in swallowing food?",
+      "symptom": "difficulty swallowing"
+    }
+  ],
+  "tumour in the throat": [
+    {
+      "question": "Do you feel a lump in your throat?",
+      "symptom": "throat lump"
+    },
+    {
+      "question": "Do you have difficulty swallowing?",
+      "symptom": "difficulty swallowing"
+    },
+    {
+      "question": "Do you notice change in voice?",
+      "symptom": "voice change"
+    },
+    {
+      "question": "Do you feel obstruction in your throat?",
+      "symptom": "throat obstruction"
+    },
+    {
+      "question": "Do you feel persistent throat discomfort?",
+      "symptom": "throat discomfort"
+    }
+  ],
+  "tympanites": [
+    {
+      "question": "Do you feel swelling in your abdomen?",
+      "symptom": "abdominal swelling"
+    },
+    {
+      "question": "Do you feel gas buildup in your stomach?",
+      "symptom": "gas buildup"
+    },
+    {
+      "question": "Does your abdomen feel tight and stretched?",
+      "symptom": "abdominal tightness"
+    },
+    {
+      "question": "Do you feel fullness in your abdomen?",
+      "symptom": "abdominal fullness"
+    },
+    {
+      "question": "Do you have difficulty passing gas?",
+      "symptom": "gas obstruction"
+    }
+  ],
+  "upward movement of vata due to suppression of natural urges": [
+    {
+      "question": "Do you feel gas moving upward in your body?",
+      "symptom": "upward gas movement"
+    },
+    {
+      "question": "Do you experience frequent belching?",
+      "symptom": "frequent belching"
+    },
+    {
+      "question": "Do you feel blockage after suppressing natural urges?",
+      "symptom": "urge suppression blockage"
+    },
+    {
+      "question": "Do you feel discomfort in your chest after holding urges?",
+      "symptom": "chest discomfort urges"
+    },
+    {
+      "question": "Do you feel restlessness after not passing stool or gas?",
+      "symptom": "restlessness urge suppression"
+    }
+  ],
+  "uvulitis": [
+    {
+      "question": "Do you notice swelling of the uvula in your throat?",
+      "symptom": "uvula swelling"
+    },
+    {
+      "question": "Do you feel something hanging in the back of your throat?",
+      "symptom": "uvula hanging sensation"
+    },
+    {
+      "question": "Do you have difficulty swallowing due to throat swelling?",
+      "symptom": "swallowing difficulty uvula"
+    },
+    {
+      "question": "Do you feel irritation in the throat area?",
+      "symptom": "throat irritation"
+    },
+    {
+      "question": "Do you notice redness in the throat?",
+      "symptom": "throat redness"
+    }
+  ],
+  "vomiting": [
+    {
+      "question": "Do you feel a strong urge to vomit?",
+      "symptom": "vomiting urge"
+    },
+    {
+      "question": "Are you experiencing repeated vomiting episodes?",
+      "symptom": "repeated vomiting"
+    },
+    {
+      "question": "Do you feel nausea before vomiting?",
+      "symptom": "nausea"
+    },
+    {
+      "question": "Do you notice food coming out after eating?",
+      "symptom": "post meal vomiting"
+    },
+    {
+      "question": "Do you feel weakness after vomiting?",
+      "symptom": "post vomiting weakness"
+    }
+  ],
+  "wasting disease (tuberculosis-like)": [
+    {
+      "question": "Do you notice continuous weight loss?",
+      "symptom": "continuous weight loss"
+    },
+    {
+      "question": "Do you feel extreme weakness in your body?",
+      "symptom": "extreme weakness"
+    },
+    {
+      "question": "Do you have persistent cough?",
+      "symptom": "persistent cough"
+    },
+    {
+      "question": "Do you experience fever for a long time?",
+      "symptom": "chronic fever"
+    },
+    {
+      "question": "Do you feel loss of appetite?",
+      "symptom": "loss of appetite"
+    }
+  ],
+  "worm infestation": [
+    {
+      "question": "Do you notice worms in your stool?",
+      "symptom": "worms in stool"
+    },
+    {
+      "question": "Do you feel itching around the anal area?",
+      "symptom": "anal itching"
+    },
+    {
+      "question": "Do you have abdominal discomfort with worms?",
+      "symptom": "worm abdominal discomfort"
+    },
+    {
+      "question": "Do you feel loss of appetite due to worms?",
+      "symptom": "worm appetite loss"
+    },
+    {
+      "question": "Do you notice weakness due to worm infection?",
+      "symptom": "worm weakness"
+    }
+  ]
+}
