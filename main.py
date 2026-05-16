@@ -213,6 +213,11 @@ def detect_intent(text):
     # ===================================================
 
     if len(words) <= 2:
+        if any(w in words for w in YES_WORDS) and len(words) > 1:
+            return "mixed"
+
+        if any(w in words for w in NO_WORDS) and len(words) > 1:
+            return "mixed"
 
         if any(w in words for w in YES_WORDS):
             return "yes"
@@ -387,14 +392,13 @@ def extract_symptoms(text):
 
                 # exact duplicate
                 # Existing symptom already contains this meaning
-                if col_clean in existing_clean or existing_clean in col_clean:
+                # existing symptom already more specific
+
+                if col_clean == existing_clean:
                     skip = True
                     break
 
-                # existing symptom is more specific
-                # e.g. abdominal pain > pain
-                if col_clean in existing_clean:
-
+                if col_clean in existing_clean and len(existing_clean) > len(col_clean):
                     skip = True
                     break
 
@@ -666,6 +670,15 @@ def predict(data: Input):
         context["awaiting_severity"] = False
 
     intent = detect_intent(user_input)
+    
+    if intent in ["yes", "no"] and not last_symptom:
+
+       return {
+            "type": "clarification",
+            "message": (
+                "Please describe any symptoms or concerns you're experiencing."
+            ),
+        }
 
     if intent == "yes":
         if last_symptom:
