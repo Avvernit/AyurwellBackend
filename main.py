@@ -676,12 +676,18 @@ def predict(data: Input):
     
     if intent in ["yes", "no"] and not last_symptom:
 
-       return {
-            "type": "clarification",
-            "message": (
-                "Please describe any symptoms or concerns you're experiencing."
-            ),
-        }
+        if intent == "no":
+        
+            intent = "stop"
+    
+        else:
+        
+            return {
+                "type": "clarification",
+                "message": (
+                    "Please describe any symptoms or concerns you're experiencing."
+                ),
+            }
     elif intent == "mixed":
 
         extracted_data = extract_symptoms(user_input)
