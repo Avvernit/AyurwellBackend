@@ -634,7 +634,8 @@ def predict(data: Input):
     if intent == "yes":
         if last_symptom:
 
-            symptoms = list(set(symptoms + [last_symptom]))
+            if last_symptom not in symptoms:
+                symptoms.append(last_symptom)
 
     elif intent == "no":
         pass
@@ -746,17 +747,17 @@ def predict(data: Input):
     if results["follow_up_needed"] or confidence < 60:
 
         questions = results["follow_up_context"].get("questions", [])
-        
+
         # ==========================================
         # REMOVE ALREADY ASKED / EXISTING SYMPTOMS
         # ==========================================
-        
+
         filtered_questions = []
-        
+
         for q in questions:
         
             symptom_name = q["symptom"]
-        
+
             # already asked before
             if symptom_name in asked:
                 continue
@@ -766,27 +767,67 @@ def predict(data: Input):
                 continue
             
             filtered_questions.append(q)
-        
+
         # ==========================================
         # ASK NEXT VALID QUESTION
         # ==========================================
-        
+
         if filtered_questions:
         
             selected = filtered_questions[0]
-        
-            asked.append(selected["symptom"])
-
-        if questions:
-
-            selected = questions[0]
 
             asked.append(selected["symptom"])
+
+        if filtered_questions:      
+
+            selected = filtered_questions[0]        
+
+            asked.append(selected["symptom"])       
 
             display_symptom = DISPLAY_NAMES.get(
                 selected["symptom"],
                 selected["symptom"]
-            )
+            )       
+
+            display_symptom = (
+                display_symptom
+                .replace("_", " ")
+                .replace("-", " ")
+            )       
+
+            question_text = (
+                f"Are you also experiencing {display_symptom}?"
+            )       
+
+            return {
+                "type": "follow_up",
+                "context_mode": "follow_up",
+                "question": question_text,
+                "context": {
+                    "symptoms": symptoms,
+                    "asked": asked,
+                    "round": round_ + 1,
+                    "last_symptom": selected["symptom"],
+                    "disease_counts": counts,
+                },
+            }       
+
+        else:       
+
+            return {
+                "type": "follow_up",
+                "context_mode": "follow_up",
+                "question": (
+                    "Could you describe any other symptoms you're experiencing?"
+                ),
+                "context": {
+                    "symptoms": symptoms,
+                    "asked": asked,
+                    "round": round_ + 1,
+                    "last_symptom": "",
+                    "disease_counts": counts,
+                },
+            }
             
             display_symptom = (
                 display_symptom
