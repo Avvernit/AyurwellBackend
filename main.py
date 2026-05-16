@@ -815,7 +815,7 @@ def predict(data: Input):
     # ====================================================
 
     if (
-        intent in ["yes", "no"]
+        intent == "yes"
         and not last_symptom
         and len(extract_symptoms(user_input)) == 0
     ):
