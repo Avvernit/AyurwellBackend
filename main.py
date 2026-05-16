@@ -86,7 +86,12 @@ def generate_ai_response(
     disease, confidence, symptoms, remedies="", diet="", lifestyle=""
 ):
 
-    symptom_text = ", ".join(symptoms)
+    display_symptoms = [
+        DISPLAY_NAMES.get(s, s)
+        for s in symptoms
+    ]
+
+    symptom_text = ", ".join(display_symptoms)
 
     remedies = clean_text(remedies)
     diet = clean_text(diet)
@@ -647,7 +652,7 @@ def predict(data: Input):
     asked = context.get("asked", [])
     counts = context.get("disease_counts", {})
     round_ = context.get("round", 0)
-    collecting_done = context.get("collecting_done", False)
+
     
     last_symptom = context.get("last_symptom", "")
     extracted_data = {}
@@ -679,8 +684,35 @@ def predict(data: Input):
 
         results = hybrid_predict_v2(symptom_severity)
         context["awaiting_severity"] = False
+        extracted_data[symptom] = sev_value
 
     intent = detect_intent(user_input)
+    # ====================================================
+    # HANDLE YES TO FOLLOW-UP QUESTION
+    # ====================================================
+    
+    if intent == "yes" and last_symptom:
+
+        display_symptom = DISPLAY_NAMES.get(
+            last_symptom,
+            last_symptom
+        )
+
+        return {
+            "type": "severity_followup",
+            "question": (
+                f"On a scale of 1 to 5, how severe is the {display_symptom}?"
+            ),
+            "context": {
+                "symptoms": symptoms,
+                "asked": asked,
+                "round": round_,
+                "last_symptom": last_symptom,
+                "awaiting_severity": True,
+                "disease_counts": counts,
+                "severity": severity,
+            },
+        }
     
     if intent in ["yes", "no"] and not last_symptom:
 
@@ -706,35 +738,10 @@ def predict(data: Input):
 
             if s not in symptoms:
                 symptoms.append(s)
-                
-    if not collecting_done and intent == "yes" and not last_symptom:
-
-        return {
-            "type": "clarification",
-            "message": (
-                "Please describe any symptoms or concerns you're experiencing."
-            ),
-            "context": {
-                "symptoms": symptoms,
-                "asked": asked,
-                "round": round_,
-                "last_symptom": "",
-                "disease_counts": counts,
-                "severity": severity,
-                "collecting_done": collecting_done,
-            },
-        }
-
-    if not collecting_done and intent == "no":
-
-        collecting_done = True  
-
-    if intent == "yes":
-        if last_symptom:    
-            if last_symptom not in symptoms:
-                symptoms.append(last_symptom)   
+  
     elif intent == "no":
-        pass    
+
+        last_symptom = ""  
     elif intent == "new":
         
         extracted_data = extract_symptoms(user_input)   
@@ -761,31 +768,11 @@ def predict(data: Input):
                         "disease_counts": counts,
                         "symptoms": symptoms + [symptom],
                         "severity": severity,
-                        "collecting_done": collecting_done,
                     },
                 }   
         for s in new_symptoms:  
             if s not in symptoms:
-                symptoms.append(s)  
-                
-        if (
-            not collecting_done
-            and len(symptoms) <= 2
-        ):    
-
-            return {
-                "type": "follow_up",
-                "question": "Do you have any more symptoms?",
-                "context": {
-                    "symptoms": symptoms,
-                    "asked": asked,
-                    "round": round_,
-                    "last_symptom": "",
-                    "disease_counts": counts,
-                    "severity": severity,
-                    "collecting_done": False,
-                },
-            }
+                symptoms.append(s)     
 
     # ====================================================
     # INVALID YES/NO SAFETY
@@ -882,64 +869,13 @@ def predict(data: Input):
     # ====================================================
     # ASK FOR MORE SYMPTOMS ONLY ONCE
     # ====================================================
-    
-    if (
-        not collecting_done
-        and intent != "no"
-        and len(symptoms) <= 2
-        and confidence < 70
-    ):
-    
-        return {
-            "type": "follow_up",
-            "question": "Do you have any more symptoms?",
-            "context": {
-                "symptoms": symptoms,
-                "asked": asked,
-                "round": round_,
-                "last_symptom": "",
-                "disease_counts": counts,
-                "severity": severity,
-                "collecting_done": False,
-            },
-        }
 # ====================================================
 # USER SAID NO MORE SYMPTOMS
 # FALLBACK TO HOME REMEDIES
 # ====================================================
-
-    if intent == "no" and collecting_done:
-    
-        matched_general = None
-    
-        for symptom in symptoms:
-        
-            if symptom in HOME_REMEDIES:
-                matched_general = symptom
-                break
-            
-        if matched_general:
-        
-            general = HOME_REMEDIES[matched_general]
-    
-            return {
-                "type": "general_remedy",
-                "confidence": confidence,
-                "message": generate_ai_response(
-                    matched_general,
-                    confidence,
-                    symptoms,
-                    general.get("remedies", ""),
-                    general.get("diet", ""),
-                    general.get("lifestyle", ""),
-                ),
-                "remedies": general.get("remedies", ""),
-                "diet": general.get("diet", ""),
-                "lifestyle": general.get("lifestyle", ""),
-            }
     # ===== QUESTION FLOW =====
 
-    if (results["follow_up_needed"] or confidence < 60) and round_ < 3:
+    if (results["follow_up_needed"] or confidence < 60) and round_ < 2:
         
         questions = results["follow_up_context"].get("questions", [])
 
@@ -987,33 +923,36 @@ def predict(data: Input):
                     "last_symptom": selected["symptom"],
                     "disease_counts": counts,
                     "severity": severity,
-                    "collecting_done": collecting_done,
                 },
             }
         else:
 
-            return {
-                "type": "follow_up",
-                "context_mode": "follow_up",
-                "question": (
-                    "Could you describe any other symptoms you're experiencing?"
-                ),
-                "context": {
-                    "symptoms": symptoms,
-                    "asked": asked,
-                    "round": round_ + 1,
-                    "last_symptom": "",
-                    "disease_counts": counts,
-                    "severity": severity,
-                    "collecting_done": collecting_done,
-                },
-            }
+           if round_ >= 2:
+                pass
+
+           else:
+
+               return {
+                   "type": "follow_up",
+                   "context_mode": "follow_up",
+                   "question": (
+                       "Could you describe any other symptoms you're experiencing?"
+                   ),
+                   "context": {
+                       "symptoms": symptoms,
+                       "asked": asked,
+                       "round": round_ + 1,
+                       "last_symptom": "",
+                       "disease_counts": counts,
+                       "severity": severity,
+                   },
+               }
 
         
 
     # ===== FINAL CONDITIONS =====
     
-    if len(symptoms) < 2 and confidence < 75:
+    if len(symptoms) < 2 and confidence < 60 and round_ < 2:
 
         return {
             "type": "clarification",
@@ -1028,7 +967,6 @@ def predict(data: Input):
                 "last_symptom": "",
                 "disease_counts": counts,
                 "severity": severity,
-                "collecting_done": collecting_done,
             },
         }
 
@@ -1056,7 +994,6 @@ def predict(data: Input):
                     "last_symptom": "",
                     "disease_counts": counts,
                     "severity": severity,
-                    "collecting_done": collecting_done,
                 },
             }
     
