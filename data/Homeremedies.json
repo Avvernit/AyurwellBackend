@@ -1,0 +1,342 @@
+{
+  "indigestion": {
+    "remedies": "Ginger with salt before meals, cumin with warm water, lemon juice with salt and pepper, roasted fennel with buttermilk.",
+    "diet": "Eat light warm meals, avoid oily and heavy foods.",
+    "lifestyle": "Maintain regular meal timings and avoid overeating."
+  },
+
+  "cold_cough": {
+    "remedies": "Tulsi juice with honey, turmeric milk, coriander decoction, clove with honey, ginger decoction.",
+    "diet": "Drink warm fluids and herbal teas.",
+    "lifestyle": "Avoid cold exposure and get proper rest."
+  },
+
+  "loss_of_appetite": {
+    "remedies": "Ajwain powder with warm water before meals, black pepper with lemon juice, cinnamon and ajwain chew mix.",
+    "diet": "Prefer warm freshly cooked food.",
+    "lifestyle": "Eat meals on time and stay physically active."
+  },
+  "diarrhoea_dysentery": {
+    "remedies": "Pomegranate rind decoction, fried cumin with buttermilk, cardamom skin ash with honey, fennel powder with buttermilk.",
+    "diet": "Consume light bland foods and plenty of fluids.",
+    "lifestyle": "Maintain hydration and avoid heavy spicy meals."
+  },
+
+  "hyperacidity": {
+    "remedies": "Amla juice or powder with milk, pomegranate juice, tender coconut water, cumin ghee with rice.",
+    "diet": "Prefer cooling foods and avoid spicy fried items.",
+    "lifestyle": "Eat smaller meals regularly and avoid late-night eating."
+  },
+
+  "skin_allergy": {
+    "remedies": "Turmeric powder with jaggery, tulsi juice, ajwain seed powder with water.",
+    "diet": "Avoid excessively spicy and preserved foods.",
+    "lifestyle": "Reduce stress and maintain skin hygiene."
+  },
+  "diabetes": {
+    "remedies": "Karela seed powder with water, amla juice with fresh turmeric juice, methi powder with milk.",
+    "diet": "Avoid excess sugar and refined foods.",
+    "lifestyle": "Exercise regularly and maintain consistent meal timings."
+  },
+
+  "fever": {
+    "remedies": "Tulsi leaf decoction with coriander, coriander seed decoction with sugar.",
+    "diet": "Drink warm fluids and eat light foods.",
+    "lifestyle": "Rest adequately and stay hydrated."
+  },
+
+  "abdominal_pain": {
+    "remedies": "Ajwain powder with lukewarm water, ginger juice with buttermilk and lemon, fennel powder with buttermilk.",
+    "diet": "Avoid gas-forming and oily foods.",
+    "lifestyle": "Eat slowly and avoid irregular eating habits."
+  },
+  "constipation": {
+    "remedies": "Warm milk with ghee at bedtime, amla powder with milk.",
+    "diet": "Increase warm fluids and fiber-rich foods.",
+    "lifestyle": "Maintain regular sleep and bowel habits."
+  },
+
+  "headache": {
+    "remedies": "Warm ginger paste on forehead, cinnamon paste applied externally.",
+    "diet": "Avoid excessive caffeine and processed foods.",
+    "lifestyle": "Reduce stress and ensure proper rest."
+  },
+
+  "dehydration_sunstroke": {
+    "remedies": "Tender coconut water, lemon water with salt and sugar, coriander decoction with sugar and salt.",
+    "diet": "Consume cooling fluids frequently.",
+    "lifestyle": "Avoid prolonged sun exposure and stay hydrated."
+  },
+  "skin_diseases": {
+    "remedies": "Neem leaf juice with honey, karela juice on empty stomach, turmeric paste with ghee or coconut oil.",
+    "diet": "Avoid oily, preserved, and excessively spicy foods.",
+    "lifestyle": "Maintain skin cleanliness and avoid scratching affected areas."
+  },
+
+  "vomiting": {
+    "remedies": "Cardamom seed powder with honey, lemon juice with salt and sugar water, cinnamon powder with honey.",
+    "diet": "Take light bland foods and sip fluids slowly.",
+    "lifestyle": "Rest and avoid overeating."
+  },
+
+  "bad_breath": {
+    "remedies": "Warm pomegranate rind gargle, chew cardamom or clove, fennel after meals.",
+    "diet": "Reduce excessively spicy and pungent foods.",
+    "lifestyle": "Maintain regular oral hygiene and hydration."
+  },
+  "joint_pain": {
+    "remedies": "Warm garlic paste with oil applied externally, ginger powder with jaggery.",
+    "diet": "Prefer warm nourishing meals.",
+    "lifestyle": "Avoid excessive strain and keep joints warm."
+  },
+
+  "hair_fall_dandruff": {
+    "remedies": "Amla paste or soaked amla water on scalp, methi paste before bath, coconut oil processed with methi and amla.",
+    "diet": "Include nutritious fresh foods.",
+    "lifestyle": "Maintain scalp hygiene and avoid harsh hair treatments."
+  },
+
+  "bleeding_gums": {
+    "remedies": "Amla powder massage, black pepper with honey on gums, lemon peel rubbed gently on gums.",
+    "diet": "Avoid excess sugary foods.",
+    "lifestyle": "Brush regularly and maintain oral hygiene."
+  },
+  "flatulence_gas": {
+    "remedies": "Ajwain with fennel powder and warm water, garlic juice with honey, hing fried in ghee with buttermilk.",
+    "diet": "Avoid heavy oily and gas-forming foods.",
+    "lifestyle": "Eat slowly and maintain regular physical activity."
+  },
+
+  "loss_of_voice_hoarseness": {
+    "remedies": "Dry ginger powder with honey, black pepper fried with ghee kept in mouth.",
+    "diet": "Consume warm fluids and avoid cold drinks.",
+    "lifestyle": "Rest the voice and avoid excessive speaking."
+  },
+
+  "wounds_ulcers_burns": {
+    "remedies": "Apply ghee, turmeric paste with coconut oil, neem paste, or honey and ghee mixture externally.",
+    "diet": "Eat fresh nourishing foods.",
+    "lifestyle": "Keep affected area clean and protected."
+  },
+  "ear_pain": {
+    "remedies": "Warm ginger juice drops, garlic juice or garlic oil drops, tulsi juice drops, clove oil in coconut oil.",
+    "diet": "Prefer warm foods and fluids.",
+    "lifestyle": "Avoid exposure to cold air and do not use remedies if ear discharge is present."
+  },
+
+  "cough_with_fever": {
+    "remedies": "Pippali powder with honey, tulsi decoction with coriander, warm clove decoction.",
+    "diet": "Drink warm herbal fluids and eat light meals.",
+    "lifestyle": "Rest adequately and avoid cold exposure."
+  },
+
+  "stress_mental_tension": {
+    "remedies": "Amla application on forehead, cinnamon aroma for calming effect.",
+    "diet": "Avoid excess tea and coffee.",
+    "lifestyle": "Practice meditation, prayer, yoga, sports, or relaxation activities."
+  },
+  "obesity": {
+    "remedies": "Honey with warm water in the morning.",
+    "diet": "Avoid fried, heavy, and preserved foods.",
+    "lifestyle": "Exercise regularly and maintain disciplined eating habits."
+  },
+
+  "intestinal_worms": {
+    "remedies": "Coriander powder with jaggery, neem leaf decoction on empty stomach, karela juice with jaggery.",
+    "diet": "Eat freshly prepared light meals.",
+    "lifestyle": "Maintain good hygiene and avoid stale food."
+  },
+
+  "acne": {
+    "remedies": "Turmeric paste applied externally, pomegranate seed paste, karela juice on empty stomach.",
+    "diet": "Reduce oily and excessively spicy foods.",
+    "lifestyle": "Keep skin clean and avoid touching affected areas frequently."
+  },
+  "piles": {
+    "remedies": "Ajwain powder with black salt and buttermilk, pomegranate juice with sugar.",
+    "diet": "Consume fiber-rich and light foods.",
+    "lifestyle": "Avoid prolonged sitting and maintain regular bowel habits."
+  },
+
+  "hiccough": {
+    "remedies": "Chew cardamom fruits, black pepper powder with sugar, warm clove decoction.",
+    "diet": "Take warm fluids slowly.",
+    "lifestyle": "Avoid overeating and eating too quickly."
+  },
+
+  "cold_related_nasal_block": {
+    "remedies": "Ajwain steam inhalation, ginger decoction, coriander herbal tea.",
+    "diet": "Drink warm herbal beverages.",
+    "lifestyle": "Avoid cold exposure and ensure adequate rest."
+  },
+  "peptic_ulcer": {
+    "remedies": "Amla juice or amla powder with milk, ghee application for soothing effect.",
+    "diet": "Consume soft, cooling, non-spicy foods.",
+    "lifestyle": "Avoid irregular meals and excessive stress."
+  },
+
+  "memory_support": {
+    "remedies": "Regular moderate use of ghee.",
+    "diet": "Include nourishing balanced foods.",
+    "lifestyle": "Ensure proper sleep and mental relaxation."
+  },
+
+  "lactation_support": {
+    "remedies": "Methi powder with milk and sugar.",
+    "diet": "Maintain nutritious and hydrating meals.",
+    "lifestyle": "Get adequate rest and regular nourishment."
+  },
+  "toothache": {
+    "remedies": "Keep fried hing or crushed clove in the affected tooth.",
+    "diet": "Avoid very cold and sugary foods.",
+    "lifestyle": "Maintain regular oral hygiene."
+  },
+
+  "ringworm": {
+    "remedies": "Neem leaf decoction applied to scalp or affected area.",
+    "diet": "Avoid excessively oily and preserved foods.",
+    "lifestyle": "Keep affected skin clean and dry."
+  },
+
+  "body_ache": {
+    "remedies": "Methi powder mixed with cumin powder and warm milk.",
+    "diet": "Prefer warm nourishing meals.",
+    "lifestyle": "Take adequate rest and avoid overexertion."
+  },
+  "painful_menses": {
+    "remedies": "Ajwain seed powder with warm milk for a few days.",
+    "diet": "Consume warm light meals and fluids.",
+    "lifestyle": "Rest adequately and avoid excessive physical strain."
+  },
+
+  "dry_cough": {
+    "remedies": "Cinnamon chew mix, clove with honey, cardamom with honey, black pepper with ghee and honey.",
+    "diet": "Drink warm fluids and avoid cold foods.",
+    "lifestyle": "Avoid dust, smoke, and cold exposure."
+  },
+
+  "sunstroke_prevention": {
+    "remedies": "Tender coconut water, onion in diet, lemon water with salt and sugar.",
+    "diet": "Increase cooling fluids and hydrating foods.",
+    "lifestyle": "Avoid prolonged direct sunlight and stay hydrated."
+  },
+  "urticaria": {
+    "remedies": "Ajwain seed powder with water twice daily, turmeric decoction or herbal tea.",
+    "diet": "Avoid excessively spicy and preserved foods.",
+    "lifestyle": "Reduce exposure to known irritants and maintain skin hygiene."
+  },
+
+  "greying_of_hair": {
+    "remedies": "Regular intake of fresh amla, amla scalp application, tulsi-infused coconut oil.",
+    "diet": "Include nutritious fresh foods.",
+    "lifestyle": "Maintain scalp care and reduce stress."
+  },
+
+  "pyorrhoea": {
+    "remedies": "Honey mixture with ginger, pepper, rock salt, and ghee on gums, pippali decoction retained in mouth.",
+    "diet": "Limit sugary foods and maintain hydration.",
+    "lifestyle": "Brush and clean gums regularly."
+  },
+  "kidney_stones": {
+    "remedies": "Tender coconut water taken twice daily.",
+    "diet": "Increase fluid intake and consume hydrating foods.",
+    "lifestyle": "Stay well hydrated throughout the day."
+  },
+
+  "black_pigmentation": {
+    "remedies": "Nutmeg rubbed in milk and applied externally.",
+    "diet": "Eat fresh balanced foods.",
+    "lifestyle": "Protect skin from excessive sun exposure."
+  },
+
+  "irritability_restlessness": {
+    "remedies": "Small amounts of nutmeg powder with milk.",
+    "diet": "Prefer light nourishing meals.",
+    "lifestyle": "Ensure proper sleep and calming activities."
+  },
+   "loss_of_voice": {
+    "remedies": "Dry ginger powder with honey, black pepper fried in ghee kept in mouth.",
+    "diet": "Drink warm fluids and avoid cold beverages.",
+    "lifestyle": "Avoid excessive speaking and rest the voice."
+  },
+
+  "dehydration": {
+    "remedies": "Tender coconut water, lemon water with salt and sugar, coriander decoction with salt and sugar.",
+    "diet": "Increase fluid-rich and cooling drinks.",
+    "lifestyle": "Avoid prolonged heat exposure."
+  },
+
+  "mouth_bad_breath": {
+    "remedies": "Warm pomegranate rind gargle, chew fennel, clove, or cardamom after meals.",
+    "diet": "Avoid excessively pungent foods.",
+    "lifestyle": "Maintain oral hygiene and hydration."
+  },
+  "sinusitis": {
+    "remedies": "Ajwain steam inhalation and warm paste application on forehead.",
+    "diet": "Consume warm fluids and avoid cold foods.",
+    "lifestyle": "Avoid cold exposure and inhale steam regularly."
+  },
+
+  "aches_pains": {
+    "remedies": "Dry ginger powder with jaggery in divided doses.",
+    "diet": "Prefer warm nourishing foods.",
+    "lifestyle": "Avoid excessive strain and rest properly."
+  },
+
+  "bleeding_piles": {
+    "remedies": "Pomegranate juice with sugar or dried rind powder with sugar.",
+    "diet": "Increase fiber and fluid intake.",
+    "lifestyle": "Avoid constipation and prolonged sitting."
+  },
+
+  "sunstroke": {
+    "remedies": "Onion in diet, tender coconut water, lemon water with salt and sugar.",
+    "diet": "Increase cooling fluids and hydrating foods.",
+    "lifestyle": "Avoid prolonged direct sun exposure."
+  },
+
+  "tension_headache": {
+    "remedies": "Cinnamon paste applied externally.",
+    "diet": "Avoid excessive caffeine.",
+    "lifestyle": "Reduce stress and get adequate rest."
+  },
+  "general_health": {
+    "remedies": "Regular use of amla for nourishment and overall wellness.",
+    "diet": "Consume balanced fresh foods regularly.",
+    "lifestyle": "Maintain healthy routines and regular exercise."
+  },
+
+  "face_glow_skin_care": {
+    "remedies": "Turmeric with milk or cream on face, honey face application.",
+    "diet": "Avoid excessively oily and processed foods.",
+    "lifestyle": "Maintain skin hygiene and proper hydration."
+  },
+
+  "tartar": {
+    "remedies": "Black pepper with honey applied to gums after warm salt water gargle.",
+    "diet": "Reduce sugary foods.",
+    "lifestyle": "Brush and clean teeth regularly."
+  },
+  "productive_cough": {
+    "remedies": "Clove decoction, cardamom chewing, cumin-based warm decoction with honey or sugar.",
+    "diet": "Drink warm fluids frequently.",
+    "lifestyle": "Avoid cold exposure and rest adequately."
+  },
+
+  "hair_conditioning": {
+    "remedies": "Methi paste used regularly on scalp before bath.",
+    "diet": "Include nutritious fresh foods.",
+    "lifestyle": "Maintain regular scalp care."
+  },
+
+  "mouth_ulcers": {
+    "remedies": "Pippali decoction with honey and ghee retained in mouth.",
+    "diet": "Avoid spicy and irritating foods.",
+    "lifestyle": "Maintain oral hygiene."
+  },
+  "oral_health": {
+    "remedies": "Warm pomegranate rind gargle, black pepper with honey on gums, lemon peel rubbing, clove chewing.",
+    "diet": "Limit sugary foods and maintain hydration.",
+    "lifestyle": "Brush teeth regularly and maintain gum hygiene."
+  }
+}
