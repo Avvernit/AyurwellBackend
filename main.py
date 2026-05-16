@@ -685,12 +685,12 @@ def predict(data: Input):
         if pending:
 
            next_symptom = pending.pop(0)
-        
+
            display_symptom = DISPLAY_NAMES.get(
                next_symptom,
                next_symptom
            )
-        
+
            return {
                "type": "severity_followup",
                "question": (
@@ -794,6 +794,10 @@ def predict(data: Input):
                         "round": round_,
                         "last_symptom": symptom,
                         "awaiting_severity": True,
+                        "pending_severity": [
+                            s for s in new_symptoms
+                            if s != symptom and s not in severity
+                        ],
                         "disease_counts": counts,
                         "symptoms": symptoms + [symptom],
                         "severity": severity,
