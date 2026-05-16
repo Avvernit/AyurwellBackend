@@ -177,6 +177,9 @@ with open(os.path.join(BASE_DIR, "data", "words.json")) as f:
 
 with open(os.path.join(BASE_DIR, "data", "synonyms.json")) as f:
     SYNONYMS = json.load(f)
+    
+with open(os.path.join(BASE_DIR, "data", "Homeremedies.json")) as f:
+    HOME_REMEDIES = json.load(f)
 
 YES_WORDS = WORDS["yes"]
 NO_WORDS = WORDS["no"]
@@ -512,6 +515,9 @@ def hybrid_predict_v2(user_symptoms):
                         "score": round(symptom_score, 2),
                     }
                 )
+        if hallmark_matched >= 3:
+
+            matched_score *= 1.5
         # =================================================
         # HALLMARK COVERAGE
         # =================================================
@@ -557,9 +563,6 @@ def hybrid_predict_v2(user_symptoms):
                 "matched_symptoms": matched_symptoms,
             }
         )
-    if hallmark_matched >= 3:
-
-            matched_score *= 1.5
     # =====================================================
     # SORT RESULTS
     # =====================================================
@@ -644,6 +647,8 @@ def predict(data: Input):
     asked = context.get("asked", [])
     counts = context.get("disease_counts", {})
     round_ = context.get("round", 0)
+    collecting_done = context.get("collecting_done", False)
+    
     last_symptom = context.get("last_symptom", "")
     extracted_data = {}
     severity = data.severity or {}
@@ -677,11 +682,11 @@ def predict(data: Input):
     if intent in ["yes", "no"] and not last_symptom:
 
         if intent == "no":
-        
+
             intent = "stop"
-    
+
         else:
-        
+
             return {
                 "type": "clarification",
                 "message": (
@@ -698,34 +703,47 @@ def predict(data: Input):
 
             if s not in symptoms:
                 symptoms.append(s)
+                
+    if not collecting_done and intent == "yes" and not last_symptom:
+
+        return {
+            "type": "clarification",
+            "message": (
+                "Please describe any symptoms or concerns you're experiencing."
+            ),
+            "context": {
+                "symptoms": symptoms,
+                "asked": asked,
+                "round": round_,
+                "last_symptom": "",
+                "disease_counts": counts,
+                "severity": severity,
+                "collecting_done": collecting_done,
+            },
+        }
+
+    if not collecting_done and intent == "no":
+
+        collecting_done = True  
 
     if intent == "yes":
-        if last_symptom:
-
+        if last_symptom:    
             if last_symptom not in symptoms:
-                symptoms.append(last_symptom)
-
+                symptoms.append(last_symptom)   
     elif intent == "no":
-        pass
-
-    else:
-        extracted_data = extract_symptoms(user_input)
-
+        pass    
+    elif intent == "new":
+        
+        extracted_data = extract_symptoms(user_input)   
         print("\nExtracted Data:")
-        print(extracted_data)
-
-        new_symptoms = list(extracted_data.keys())
-
+        print(extracted_data)   
+        new_symptoms = list(extracted_data.keys())  
         # ====================================================
         # ASK FOR MISSING SEVERITY
-        # ====================================================
-
-        for symptom in new_symptoms:
-
-            if symptom not in severity:
-
-                display_symptom = DISPLAY_NAMES.get(symptom, symptom)
-
+        # ====================================================  
+        for symptom in new_symptoms:    
+            if symptom not in severity: 
+                display_symptom = DISPLAY_NAMES.get(symptom, symptom)   
                 return {
                     "type": "severity_followup",
                     "question": (
@@ -740,15 +758,30 @@ def predict(data: Input):
                         "disease_counts": counts,
                         "symptoms": symptoms + [symptom],
                         "severity": severity,
+                        "collecting_done": collecting_done,
                     },
-                }
-
-        for s in new_symptoms:
-
+                }   
+        for s in new_symptoms:  
             if s not in symptoms:
-                symptoms.append(s)
+                symptoms.append(s)  
+                
+        if not collecting_done:     
 
-        # ====================================================
+            return {
+                "type": "follow_up",
+                "question": "Do you have any more symptoms?",
+                "context": {
+                    "symptoms": symptoms,
+                    "asked": asked,
+                    "round": round_,
+                    "last_symptom": "",
+                    "disease_counts": counts,
+                    "severity": severity,
+                    "collecting_done": False,
+                },
+            }
+
+    # ====================================================
     # INVALID YES/NO SAFETY
     # ====================================================
 
@@ -837,7 +870,7 @@ def predict(data: Input):
     confidence = top["confidence"]
     # ===== QUESTION FLOW =====
 
-    if results["follow_up_needed"] or confidence < 60:
+    if (results["follow_up_needed"] or confidence < 60) and round_ < 3:
         
         questions = results["follow_up_context"].get("questions", [])
 
@@ -885,6 +918,7 @@ def predict(data: Input):
                     "last_symptom": selected["symptom"],
                     "disease_counts": counts,
                     "severity": severity,
+                    "collecting_done": collecting_done,
                 },
             }
         else:
@@ -902,6 +936,7 @@ def predict(data: Input):
                     "last_symptom": "",
                     "disease_counts": counts,
                     "severity": severity,
+                    "collecting_done": collecting_done,
                 },
             }
 
@@ -924,6 +959,7 @@ def predict(data: Input):
                 "last_symptom": "",
                 "disease_counts": counts,
                 "severity": severity,
+                "collecting_done": collecting_done,
             },
         }
 
@@ -951,8 +987,97 @@ def predict(data: Input):
                     "last_symptom": "",
                     "disease_counts": counts,
                     "severity": severity,
+                    "collecting_done": collecting_done,
                 },
+            }
+    
+    # =====================================================
+    # POSSIBLE CONDITIONS MODE
+    # =====================================================    
+
+    if confidence >= 40 and confidence < 70 and not should_finalize:       
+
+        possible_conditions = []       
+
+        for pred in results["top_predictions"][:3]:    
+
+            possible_conditions.append(
+                {
+                    "disease": pred["disease"],
+                    "confidence": pred["confidence"],
+                }
+            )      
+
+        matched_general = None     
+
+        for symptom in symptoms:       
+
+            if symptom in HOME_REMEDIES:
+                matched_general = symptom
+                break      
+
+        remedies = ""
+        diet = ""
+        lifestyle = ""     
+
+        if matched_general:    
+
+            general = HOME_REMEDIES[matched_general]       
+
+            remedies = general.get("remedies", "")
+            diet = general.get("diet", "")
+            lifestyle = general.get("lifestyle", "")       
+
+        return {
+            "type": "possible_conditions",
+            "conditions": possible_conditions,
+            "confidence": confidence,
+            "message": generate_ai_response(
+                "possible condition",
+                confidence,
+                symptoms,
+                remedies,
+                diet,
+                lifestyle,
+            ),
+            "remedies": remedies,
+            "diet": diet,
+            "lifestyle": lifestyle,
         }
+    # =====================================================
+    # GENERAL WELLNESS FALLBACK
+    # =====================================================
+
+    if confidence < 40:
+
+        matched_general = None
+
+        for symptom in symptoms:
+
+            if symptom in HOME_REMEDIES:
+                matched_general = symptom
+                break
+
+        if matched_general:
+
+            general = HOME_REMEDIES[matched_general]
+
+            return {
+                "type": "general_remedy",
+                "confidence": confidence,
+                "message": generate_ai_response(
+                    matched_general,
+                    confidence,
+                    symptoms,
+                    general.get("remedies", ""),
+                    general.get("diet", ""),
+                    general.get("lifestyle", ""),
+                ),
+                "remedies": general.get("remedies", ""),
+                "diet": general.get("diet", ""),
+                "lifestyle": general.get("lifestyle", ""),
+            }
+    
 
     if should_finalize:
         sol = get_solution(top_disease)
