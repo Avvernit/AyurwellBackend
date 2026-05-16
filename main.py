@@ -745,7 +745,37 @@ def predict(data: Input):
 
     if results["follow_up_needed"] or confidence < 60:
 
-        questions = results["follow_up_context"]["questions"]
+        questions = results["follow_up_context"].get("questions", [])
+        
+        # ==========================================
+        # REMOVE ALREADY ASKED / EXISTING SYMPTOMS
+        # ==========================================
+        
+        filtered_questions = []
+        
+        for q in questions:
+        
+            symptom_name = q["symptom"]
+        
+            # already asked before
+            if symptom_name in asked:
+                continue
+            
+            # already confirmed symptom
+            if symptom_name in symptoms:
+                continue
+            
+            filtered_questions.append(q)
+        
+        # ==========================================
+        # ASK NEXT VALID QUESTION
+        # ==========================================
+        
+        if filtered_questions:
+        
+            selected = filtered_questions[0]
+        
+            asked.append(selected["symptom"])
 
         if questions:
 
