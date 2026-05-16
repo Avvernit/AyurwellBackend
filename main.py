@@ -771,7 +771,6 @@ def predict(data: Input):
         if (
             not collecting_done
             and len(symptoms) <= 2
-            and confidence < 70
         ):    
 
             return {
@@ -875,6 +874,30 @@ def predict(data: Input):
     top_disease = top["disease"]
     counts[top_disease] = counts.get(top_disease, 0) + 1
     confidence = top["confidence"]
+    
+# ====================================================
+# ASK FOR MORE SYMPTOMS ONLY IF STILL LOW CONFIDENCE
+# ====================================================
+
+    if (
+        not collecting_done
+        and len(symptoms) <= 2
+        and confidence < 70
+    ):
+    
+        return {
+            "type": "follow_up",
+            "question": "Do you have any more symptoms?",
+            "context": {
+                "symptoms": symptoms,
+                "asked": asked,
+                "round": round_,
+                "last_symptom": "",
+                "disease_counts": counts,
+                "severity": severity,
+                "collecting_done": False,
+            },
+        }
     # ===== QUESTION FLOW =====
 
     if (results["follow_up_needed"] or confidence < 60) and round_ < 3:
