@@ -455,9 +455,6 @@ def hybrid_predict_v2(user_symptoms):
         # =================================================
         # SYMPTOM MATCHING
         # =================================================
-        if hallmark_matched >= 3:
-
-                matched_score *= 1.5
 
         for symptom, disease_weight in profile.items():
 
@@ -560,6 +557,9 @@ def hybrid_predict_v2(user_symptoms):
                 "matched_symptoms": matched_symptoms,
             }
         )
+    if hallmark_matched >= 3:
+
+            matched_score *= 1.5
     # =====================================================
     # SORT RESULTS
     # =====================================================
@@ -606,7 +606,7 @@ def hybrid_predict_v2(user_symptoms):
             w1 = disease_1_profile.get(symptom, 0)
             w2 = disease_2_profile.get(symptom, 0)
             difference = abs(w1 - w2)
-            if difference >= 3 and symptom not in normalized_input:
+            if difference >= 3 and symptom not in normalized_input and disease_1_profile.get(symptom, 0) >= 3:
                 candidate_questions.append(
                     {"symptom": symptom, "difference": difference}
                 )
@@ -682,6 +682,16 @@ def predict(data: Input):
                 "Please describe any symptoms or concerns you're experiencing."
             ),
         }
+    elif intent == "mixed":
+
+        extracted_data = extract_symptoms(user_input)
+
+        new_symptoms = list(extracted_data.keys())
+
+        for s in new_symptoms:
+
+            if s not in symptoms:
+                symptoms.append(s)
 
     if intent == "yes":
         if last_symptom:
@@ -723,6 +733,7 @@ def predict(data: Input):
                         "awaiting_severity": True,
                         "disease_counts": counts,
                         "symptoms": symptoms + [symptom],
+                        "severity": severity,
                     },
                 }
 
@@ -915,6 +926,27 @@ def predict(data: Input):
         or (round_ >= 5 and confidence >= 50)
         or (counts.get(top_disease, 0) >= 3 and confidence >= 60)
     )
+    
+    if intent == "stop":
+
+        if confidence >= 45:
+            should_finalize = True
+
+        else:
+            return {
+                "type": "clarification",
+                "message": (
+                    "I still don't have enough information to confidently identify the condition."
+                ),
+                "context": {
+                    "symptoms": symptoms,
+                    "asked": asked,
+                    "round": round_ + 1,
+                    "last_symptom": "",
+                    "disease_counts": counts,
+                    "severity": severity,
+                },
+        }
 
     if should_finalize:
         sol = get_solution(top_disease)
