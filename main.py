@@ -346,8 +346,10 @@ def extract_symptoms(text):
                     # Example:
                     # existing = "abdominal pain"
                     # new = "pain"
-                    if canonical_clean in existing_clean:
-
+                    if (
+                        canonical_clean in existing_clean
+                        and canonical_clean != existing_clean
+                    ):
                         skip = True
                         break
 
@@ -690,6 +692,8 @@ def predict(data: Input):
                next_symptom,
                next_symptom
            )
+           if next_symptom not in symptoms:
+               symptoms.append(next_symptom)
 
            return {
                "type": "severity_followup",
@@ -709,6 +713,7 @@ def predict(data: Input):
            }
         results = hybrid_predict_v2(symptom_severity)
         context["awaiting_severity"] = False
+        context["last_symptom"] = ""
         extracted_data[symptom] = sev_value
 
     intent = detect_intent(user_input)
@@ -734,10 +739,6 @@ def predict(data: Input):
                 "round": round_,
                 "last_symptom": last_symptom,
                 "awaiting_severity": True,
-                "pending_severity": [
-                    s for s in new_symptoms
-                    if s != symptom and s not in severity
-                ],
                 "disease_counts": counts,
                 "severity": severity,
             },
@@ -789,7 +790,6 @@ def predict(data: Input):
                         f"On a scale of 1 to 5, how severe is your {display_symptom}?"
                     ),
                     "context": {
-                        "symptoms": symptoms,
                         "asked": asked,
                         "round": round_,
                         "last_symptom": symptom,
@@ -1011,7 +1011,7 @@ def predict(data: Input):
     
     if intent == "stop":
 
-        if confidence >= 45:
+        if len(symptoms) >= 2 or confidence >= 60:
             should_finalize = True
 
         else:
