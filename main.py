@@ -672,6 +672,7 @@ def predict(data: Input):
         severity = context.get("severity", {})
 
         severity[symptom] = sev_value
+        pending = context.get("pending_severity", [])
 
         context["severity"] = severity
 
@@ -681,7 +682,31 @@ def predict(data: Input):
 
         for s in symptoms:
             symptom_severity[s] = severity.get(s, 3)
+        if pending:
 
+           next_symptom = pending.pop(0)
+        
+           display_symptom = DISPLAY_NAMES.get(
+               next_symptom,
+               next_symptom
+           )
+        
+           return {
+               "type": "severity_followup",
+               "question": (
+                   f"On a scale of 1 to 5, how severe is the {display_symptom}?"
+               ),
+               "context": {
+                   "symptoms": symptoms,
+                   "asked": asked,
+                   "round": round_,
+                   "last_symptom": next_symptom,
+                   "awaiting_severity": True,
+                   "pending_severity": pending,
+                   "disease_counts": counts,
+                   "severity": severity,
+               },
+           }
         results = hybrid_predict_v2(symptom_severity)
         context["awaiting_severity"] = False
         extracted_data[symptom] = sev_value
@@ -709,6 +734,10 @@ def predict(data: Input):
                 "round": round_,
                 "last_symptom": last_symptom,
                 "awaiting_severity": True,
+                "pending_severity": [
+                    s for s in new_symptoms
+                    if s != symptom and s not in severity
+                ],
                 "disease_counts": counts,
                 "severity": severity,
             },
