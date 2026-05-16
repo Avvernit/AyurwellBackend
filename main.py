@@ -879,8 +879,13 @@ def predict(data: Input):
 # ASK FOR MORE SYMPTOMS ONLY IF STILL LOW CONFIDENCE
 # ====================================================
 
+    # ====================================================
+    # ASK FOR MORE SYMPTOMS ONLY ONCE
+    # ====================================================
+    
     if (
         not collecting_done
+        and intent != "no"
         and len(symptoms) <= 2
         and confidence < 70
     ):
@@ -898,6 +903,40 @@ def predict(data: Input):
                 "collecting_done": False,
             },
         }
+# ====================================================
+# USER SAID NO MORE SYMPTOMS
+# FALLBACK TO HOME REMEDIES
+# ====================================================
+
+    if intent == "no" and collecting_done:
+    
+        matched_general = None
+    
+        for symptom in symptoms:
+        
+            if symptom in HOME_REMEDIES:
+                matched_general = symptom
+                break
+            
+        if matched_general:
+        
+            general = HOME_REMEDIES[matched_general]
+    
+            return {
+                "type": "general_remedy",
+                "confidence": confidence,
+                "message": generate_ai_response(
+                    matched_general,
+                    confidence,
+                    symptoms,
+                    general.get("remedies", ""),
+                    general.get("diet", ""),
+                    general.get("lifestyle", ""),
+                ),
+                "remedies": general.get("remedies", ""),
+                "diet": general.get("diet", ""),
+                "lifestyle": general.get("lifestyle", ""),
+            }
     # ===== QUESTION FLOW =====
 
     if (results["follow_up_needed"] or confidence < 60) and round_ < 3:
