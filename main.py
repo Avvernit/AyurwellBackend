@@ -662,6 +662,7 @@ def predict(data: Input):
         symptom = context.get("last_symptom")
         if symptom not in symptoms:
             symptoms.append(symptom)
+            context["symptoms"] = symptoms
 
         severity = context.get("severity", {})
 
@@ -767,7 +768,11 @@ def predict(data: Input):
             if s not in symptoms:
                 symptoms.append(s)  
                 
-        if not collecting_done and len(symptoms) <= 2:     
+        if (
+            not collecting_done
+            and len(symptoms) <= 2
+            and confidence < 70
+        ):    
 
             return {
                 "type": "follow_up",
@@ -946,7 +951,7 @@ def predict(data: Input):
 
     # ===== FINAL CONDITIONS =====
     
-    if len(symptoms) < 3 and confidence < 75:
+    if len(symptoms) < 2 and confidence < 75:
 
         return {
             "type": "clarification",
