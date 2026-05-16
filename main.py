@@ -345,7 +345,7 @@ def extract_symptoms(text):
                 existing = extracted.get(canonical, 0)
 
                 extracted[canonical] = max(existing, severity)
-       
+
     # ========================================================
     # DIRECT COLUMN MATCHING
     # ========================================================
@@ -385,13 +385,9 @@ def extract_symptoms(text):
 
                 # exact duplicate
                 # Existing symptom already contains this meaning
-                if (
-                    col_clean in existing_clean
-                    or existing_clean in col_clean
-                ):
+                if col_clean in existing_clean or existing_clean in col_clean:
                     skip = True
                     break
-
 
                 # existing symptom is more specific
                 # e.g. abdominal pain > pain
@@ -667,8 +663,7 @@ def predict(data: Input):
             ),
         }
 
-    medical_words = [      
-
+    medical_words = [
         "pain",
         "fever",
         "itch",
@@ -691,17 +686,14 @@ def predict(data: Input):
         "blisters",
         "pus",
         "eye",
-        "eyes"
-    ]      
+        "eyes",
+    ]
 
-    possible_medical = any(
-        word in user_input.lower()
-        for word in medical_words
-    )      
+    possible_medical = any(word in user_input.lower() for word in medical_words)
 
-    if not symptoms:       
+    if not symptoms:
 
-        if possible_medical:       
+        if possible_medical:
 
             return {
                 "type": "clarification",
@@ -709,7 +701,7 @@ def predict(data: Input):
                     "I understand you're experiencing some symptoms. "
                     "Could you describe them in a little more detail?"
                 ),
-            }      
+            }
 
         return {
             "type": "conversation",
@@ -755,118 +747,74 @@ def predict(data: Input):
         filtered_questions = []
 
         for q in questions:
-        
+
             symptom_name = q["symptom"]
 
             # already asked before
             if symptom_name in asked:
                 continue
-            
+
             # already confirmed symptom
             if symptom_name in symptoms:
                 continue
-            
+
             filtered_questions.append(q)
 
         # ==========================================
         # ASK NEXT VALID QUESTION
         # ==========================================
 
-        if filtered_questions:
-        
-            selected = filtered_questions[0]
-
-            asked.append(selected["symptom"])
-
-        if filtered_questions:      
-
-            selected = filtered_questions[0]        
-
-            asked.append(selected["symptom"])       
-
-            display_symptom = DISPLAY_NAMES.get(
-                selected["symptom"],
-                selected["symptom"]
-            )       
-
-            display_symptom = (
-                display_symptom
-                .replace("_", " ")
-                .replace("-", " ")
-            )       
-
-            question_text = (
-                f"Are you also experiencing {display_symptom}?"
-            )       
-
-            return {
-                "type": "follow_up",
-                "context_mode": "follow_up",
-                "question": question_text,
-                "context": {
-                    "symptoms": symptoms,
-                    "asked": asked,
-                    "round": round_ + 1,
-                    "last_symptom": selected["symptom"],
-                    "disease_counts": counts,
-                },
-            }       
-
-        else:       
-
-            return {
-                "type": "follow_up",
-                "context_mode": "follow_up",
-                "question": (
-                    "Could you describe any other symptoms you're experiencing?"
-                ),
-                "context": {
-                    "symptoms": symptoms,
-                    "asked": asked,
-                    "round": round_ + 1,
-                    "last_symptom": "",
-                    "disease_counts": counts,
-                },
-            }
+            if filtered_questions:
             
-            display_symptom = (
-                display_symptom
-                .replace("_", " ")
-                .replace("-", " ")
-            )
+                selected = filtered_questions[0]
             
-            question_text = (
-                f"Are you also experiencing {display_symptom}?"
-            )
+                asked.append(selected["symptom"])
             
-            return {
-                "type": "follow_up",
-                "context_mode": "follow_up",
-                "question": question_text,
-                "context": {
-                    "symptoms": symptoms,
-                    "asked": asked,
-                    "round": round_ + 1,
-                    "last_symptom": selected["symptom"],
-                    "disease_counts": counts,
-                },
-            }
-        else:
+                display_symptom = DISPLAY_NAMES.get(
+                    selected["symptom"],
+                    selected["symptom"]
+                )
+            
+                display_symptom = (
+                    display_symptom
+                    .replace("_", " ")
+                    .replace("-", " ")
+                )
+            
+                question_text = (
+                    f"Are you also experiencing {display_symptom}?"
+                )
+            
+                return {
+                    "type": "follow_up",
+                    "context_mode": "follow_up",
+                    "question": question_text,
+                    "context": {
+                        "symptoms": symptoms,
+                        "asked": asked,
+                        "round": round_ + 1,
+                        "last_symptom": selected["symptom"],
+                        "disease_counts": counts,
+                    },
+                }
+            
+            else:
+            
+                return {
+                    "type": "follow_up",
+                    "context_mode": "follow_up",
+                    "question": (
+                        "Could you describe any other symptoms you're experiencing?"
+                    ),
+                    "context": {
+                        "symptoms": symptoms,
+                        "asked": asked,
+                        "round": round_ + 1,
+                        "last_symptom": "",
+                        "disease_counts": counts,
+                    },
+                }
 
-            return {
-                "type": "follow_up",
-                "context_mode": "follow_up",
-                "question": (
-                    "Could you describe any other symptoms you're experiencing?"
-                ),
-                "context": {
-                    "symptoms": symptoms,
-                    "asked": asked,
-                    "round": round_ + 1,
-                    "last_symptom": "",
-                    "disease_counts": counts,
-                },
-            }
         # ====================================================
         # FALLBACK FINALIZATION
         # ====================================================
