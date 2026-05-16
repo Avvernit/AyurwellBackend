@@ -660,6 +660,8 @@ def predict(data: Input):
         sev_value = int(severity_match.group(1))
 
         symptom = context.get("last_symptom")
+        if symptom not in symptoms:
+            symptoms.append(symptom)
 
         severity = context.get("severity", {})
 
@@ -765,7 +767,7 @@ def predict(data: Input):
             if s not in symptoms:
                 symptoms.append(s)  
                 
-        if not collecting_done:     
+        iif not collecting_done and len(symptoms) <= 2:     
 
             return {
                 "type": "follow_up",
