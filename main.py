@@ -733,7 +733,11 @@ def predict(data: Input):
                 f"On a scale of 1 to 5, how severe is the {display_symptom}?"
             ),
             "context": {
-                "symptoms": symptoms + [last_symptom],
+                "symptoms": (
+                    symptoms
+                    if last_symptom in symptoms
+                    else symptoms + [last_symptom]
+                ),
                 "asked": asked,
                 "round": round_,
                 "last_symptom": last_symptom,
@@ -1001,6 +1005,36 @@ def predict(data: Input):
                 "severity": severity,
             },
         }
+        
+    if round_ >= 3 and confidence < 40:
+
+        matched_general = None
+
+        for symptom in symptoms:
+
+            if symptom in HOME_REMEDIES:
+                matched_general = symptom
+                break
+
+        if matched_general:
+
+            general = HOME_REMEDIES[matched_general]
+
+            return {
+                "type": "general_remedy",
+                "confidence": confidence,
+                "message": generate_ai_response(
+                    matched_general,
+                    confidence,
+                    symptoms,
+                    general.get("remedies", ""),
+                    general.get("diet", ""),
+                    general.get("lifestyle", ""),
+                ),
+                "remedies": general.get("remedies", ""),
+                "diet": general.get("diet", ""),
+                "lifestyle": general.get("lifestyle", ""),
+            }
 
     should_finalize = (
         confidence >= 70
@@ -1031,6 +1065,24 @@ def predict(data: Input):
                     "severity": severity,
                 },
             }
+    if should_finalize:
+        sol = get_solution(top_disease)
+        return {
+            "type": "final_answer",
+            "disease": top_disease,
+            "confidence": confidence,
+            "message": generate_ai_response(
+                top_disease,
+                confidence,
+                symptoms,
+                sol.get("remedies", ""),
+                sol.get("diet", ""),
+                "" if sol.get("lifestyle") == "nan" else sol.get("lifestyle", ""),
+            ),
+            "remedies": sol.get("remedies", ""),
+            "diet": sol.get("diet", ""),
+            "lifestyle": sol.get("lifestyle", ""),
+        }
     
     # =====================================================
     # POSSIBLE CONDITIONS MODE
@@ -1118,24 +1170,18 @@ def predict(data: Input):
                 "diet": general.get("diet", ""),
                 "lifestyle": general.get("lifestyle", ""),
             }
+        return {
+            "type": "general_remedy",
+            "confidence": confidence,
+            "message": (
+                "I could not confidently identify a specific condition, "
+                "but rest, hydration, and monitoring your symptoms may help. "
+                "⚠️ This is not a medical diagnosis."
+            ),
+            "remedies": "General rest and hydration",
+            "diet": "Light and easily digestible food",
+            "lifestyle": "Proper rest and hydration",
+        }
     
 
-    if should_finalize:
-        sol = get_solution(top_disease)
 
-        return {
-            "type": "final_answer",
-            "disease": top_disease,
-            "confidence": confidence,
-            "message": generate_ai_response(
-                top_disease,
-                confidence,
-                symptoms,
-                sol.get("remedies", ""),
-                sol.get("diet", ""),
-                "" if sol.get("lifestyle") == "nan" else sol.get("lifestyle", ""),
-            ),
-            "remedies": sol.get("remedies", ""),
-            "diet": sol.get("diet", ""),
-            "lifestyle": sol.get("lifestyle", ""),
-        }
