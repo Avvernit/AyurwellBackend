@@ -69,6 +69,7 @@ Rules:
 - No bullet points
 - Never pretend to have emotions
 - Never say "I feel"
+- Max 80 words.
 """
 
     chat = client.chat.completions.create(
@@ -212,13 +213,12 @@ def detect_intent(text):
     # PURE YES / NO ONLY
     # ===================================================
 
+    if any(w in words for w in YES_WORDS) and len(words) > 1:
+        return "mixed"
+
+    if any(w in words for w in NO_WORDS) and len(words) > 1:
+        return "mixed"
     if len(words) <= 2:
-        if any(w in words for w in YES_WORDS) and len(words) > 1:
-            return "mixed"
-
-        if any(w in words for w in NO_WORDS) and len(words) > 1:
-            return "mixed"
-
         if any(w in words for w in YES_WORDS):
             return "yes"
 
@@ -455,6 +455,9 @@ def hybrid_predict_v2(user_symptoms):
         # =================================================
         # SYMPTOM MATCHING
         # =================================================
+        if hallmark_matched >= 3:
+
+                matched_score *= 1.5
 
         for symptom, disease_weight in profile.items():
 
@@ -488,6 +491,7 @@ def hybrid_predict_v2(user_symptoms):
                 if user_severity > 0:
 
                     hallmark_matched += 1
+                    
             # =============================================
             # CONTRADICTION PENALTY
             # =============================================
@@ -613,7 +617,6 @@ def hybrid_predict_v2(user_symptoms):
             "top_disease": top_1["disease"],
             "second_disease": top_2["disease"],
             "questions": candidate_questions[:5],
-            "severity": severity,
         }
 
     return {
