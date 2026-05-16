@@ -134,6 +134,7 @@ Rules:
 - bullet points if necessary
 - No long explanations
 - Avoid repetition
+- "⚠️ This is not a medical diagnosis." Make sure to add this in responses.
 """
 
     chat = client.chat.completions.create(
@@ -705,7 +706,7 @@ def predict(data: Input):
                         "last_symptom": symptom,
                         "awaiting_severity": True,
                         "disease_counts": counts,
-                        "severity": severity,
+                        "symptoms": symptoms + [symptom],
                     },
                 }
 
@@ -775,8 +776,7 @@ def predict(data: Input):
             "type": "conversation",
             "message": generate_conversation_reply(user_input),
         }
-
-    severity = data.severity or {}
+    
     for symptom, sev in extracted_data.items():
 
         existing = severity.get(symptom, 0)
@@ -875,6 +875,24 @@ def predict(data: Input):
         
 
     # ===== FINAL CONDITIONS =====
+    
+    if len(symptoms) < 3 and confidence < 75:
+
+        return {
+            "type": "clarification",
+            "message": (
+                "I still need a little more information to better understand your condition. "
+                "Could you describe any additional symptoms?"
+            ),
+            "context": {
+                "symptoms": symptoms,
+                "asked": asked,
+                "round": round_ + 1,
+                "last_symptom": "",
+                "disease_counts": counts,
+                "severity": severity,
+            },
+        }
 
     should_finalize = (
         confidence >= 70
