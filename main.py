@@ -711,7 +711,6 @@ def predict(data: Input):
                    "severity": severity,
                },
            }
-        results = hybrid_predict_v2(symptom_severity)
         context["awaiting_severity"] = False
         context["last_symptom"] = ""
         extracted_data[symptom] = sev_value
@@ -734,7 +733,7 @@ def predict(data: Input):
                 f"On a scale of 1 to 5, how severe is the {display_symptom}?"
             ),
             "context": {
-                "symptoms": symptoms,
+                "symptoms": symptoms + [last_symptom],
                 "asked": asked,
                 "round": round_,
                 "last_symptom": last_symptom,
@@ -1011,7 +1010,10 @@ def predict(data: Input):
     
     if intent == "stop":
 
-        if len(symptoms) >= 2 or confidence >= 60:
+        if (
+            (len(symptoms) >= 2 and confidence >= 40)
+            or confidence >= 60
+        ):
             should_finalize = True
 
         else:
