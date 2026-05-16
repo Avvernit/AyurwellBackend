@@ -1,41 +1,118 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-
-import pandas as pd
 import numpy as np
 import os
 import json
-import random
 import joblib
 from fastapi.middleware.cors import CORSMiddleware
-from sklearn.metrics.pairwise import cosine_similarity
+import re
+from dotenv import load_dotenv
 
+load_dotenv("API.env")
 from groq import Groq
 
-client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
-)
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-def generate_ai_response(
-    disease,
-    confidence,
-    symptoms,
-    remedies="",
-    diet="",
-    lifestyle=""
-):
+DISPLAY_NAMES = {
+    "lassitude": "fatigue or unusual tiredness",
+    "vesicles": "blisters",
+    "dyspnea": "difficulty breathing",
+    "pyrexia": "fever",
+    "cephalalgia": "headache",
+    "skin discolouration": "skin discoloration",
+    "burning sensation": "burning feeling",
+    "deep tissue damage": "deep skin damage",
+    "tremors": "shaking or trembling",
+    "syncope": "fainting",
+    "nausea": "feeling nauseous",
+    "abdominal pain": "stomach pain",
+    "thoracic pain": "chest pain",
+}
+
+
+def clean_text(text):
+
+    if not text:
+        return ""
+
+    text = str(text)
+
+    if text.lower() == "nan":
+        return ""
+
+    text = text.replace(";", ", ")
+    text = text.replace("+", ", ")
+
+    text = " ".join(text.split())
+
+    return text.strip()
+
+
+def generate_conversation_reply(message):
 
     prompt = f"""
-You are an Ayurvedic medical assistant.
+You are a warm and friendly Ayurvedic wellness assistant.
 
-Predicted disease:
+The user said:
+{message}
+
+Reply naturally like a human conversation.
+
+Rules:
+- Be short
+- Be warm
+- Sound human
+- Encourage the user to share how they feel
+- Do NOT force medical discussion immediately
+- No markdown
+- No bullet points
+- Never pretend to have emotions
+- Never say "I feel"
+"""
+
+    chat = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7,
+        max_tokens=80,
+    )
+
+    return chat.choices[0].message.content.strip()
+
+
+def generate_ai_response(
+    disease, confidence, symptoms, remedies="", diet="", lifestyle=""
+):
+
+    symptom_text = ", ".join(symptoms)
+
+    remedies = clean_text(remedies)
+    diet = clean_text(diet)
+    lifestyle = clean_text(lifestyle)
+
+    confidence_text = (
+        "high" if confidence >= 75 else "moderate" if confidence >= 45 else "low"
+    )
+
+    prompt = f"""
+You are an Ayurvedic wellness assistant.
+
+ONLY make the response conversational.
+
+DO NOT invent medical facts.
+DO NOT add extra diseases.
+DO NOT hallucinate remedies.
+
+Use ONLY the provided information.
+
+Condition:
 {disease}
 
 Confidence:
-{confidence}%
+{confidence_text}
 
 Symptoms:
-{symptoms}
+{symptom_text}
 
 Remedies:
 {remedies}
@@ -46,73 +123,57 @@ Diet:
 Lifestyle:
 {lifestyle}
 
-Generate:
-1. A concise explanation
-2. Reassuring conversational tone
-3. Explain why disease matches symptoms
-4. Mention remedies/diet naturally
-5. Do NOT claim certainty
+Write a conversational response.
+
+Rules:
+- Natural tone
+- Calm and reassuring
+- Mention uncertainty briefly
+- No markdown
+- bullet points if necessary
+- No long explanations
+- Avoid repetition
 """
 
     chat = client.chat.completions.create(
-        model="llama3-70b-8192",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        temperature=0.4
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.3,
+        max_tokens=120,
     )
 
-    return chat.choices[0].message.content
+    return chat.choices[0].message.content.strip()
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ============================================================
 # LOAD MODEL FILES
 # ============================================================
+columns = joblib.load(os.path.join(BASE_DIR, "model_files", "columns.pkl"))
 
-ann_model = joblib.load(
-    os.path.join(BASE_DIR, "model_files", "ann_model.pkl")
+symptom_rarity = joblib.load(
+    os.path.join(BASE_DIR, "model_files", "symptom_rarity.pkl")
 )
 
-scaler = joblib.load(
-    os.path.join(BASE_DIR, "model_files", "scaler.pkl")
+disease_profiles = joblib.load(
+    os.path.join(BASE_DIR, "model_files", "disease_profiles.pkl")
 )
 
-label_encoder = joblib.load(
-    os.path.join(BASE_DIR, "model_files", "label_encoder.pkl")
-)
-
-columns = joblib.load(
-    os.path.join(BASE_DIR, "model_files", "columns.pkl")
-)
-
-disease_prototypes = joblib.load(
-    os.path.join(BASE_DIR, "model_files", "disease_prototypes.pkl")
-)
+metadata = joblib.load(os.path.join(BASE_DIR, "model_files", "metadata.pkl"))
 
 # ============================================================
 # LOAD JSON FILES
 # ============================================================
 
-with open(os.path.join(BASE_DIR, "data", "questions.json")) as f:
-    QUESTIONS = json.load(f)
+with open(os.path.join(BASE_DIR, "data", "severity_words.json")) as f:
+    SEVERITY_MAP = json.load(f)
 
 with open(os.path.join(BASE_DIR, "data", "words.json")) as f:
     WORDS = json.load(f)
 
 with open(os.path.join(BASE_DIR, "data", "synonyms.json")) as f:
     SYNONYMS = json.load(f)
-
-# ============================================================
-# LOAD DATASET
-# ============================================================
-
-df = pd.read_excel(
-    os.path.join(BASE_DIR, "data", "Ayurveda.xlsx")
-)
 
 YES_WORDS = WORDS["yes"]
 NO_WORDS = WORDS["no"]
@@ -126,6 +187,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class Input(BaseModel):
 
     message: str
@@ -137,125 +199,422 @@ class Input(BaseModel):
 
 # ===== HELPERS =====
 
+
 def detect_intent(text):
-    words = text.lower().split()
-    if any(w in words for w in YES_WORDS):
-        return "yes"
-    if any(w in words for w in NO_WORDS):
-        return "no"
+
+    cleaned = text.lower().replace(".", "").replace(",", "").strip()
+
+    words = cleaned.split()
+
+    # ===================================================
+    # PURE YES / NO ONLY
+    # ===================================================
+
+    if len(words) <= 2:
+
+        if any(w in words for w in YES_WORDS):
+            return "yes"
+
+        if any(w in words for w in NO_WORDS):
+            return "no"
+
     return "new"
+
+
+# ============================================================
+# ADVANCED SYMPTOM + SEVERITY EXTRACTION
+# ============================================================
+
+NEGATION_WORDS = {"no", "not", "never", "without", "dont", "don't"}
 
 
 def extract_symptoms(text):
 
     text = text.lower()
 
-    found = []
+    extracted = {}
 
-    # synonym matching
+    clean_text = re.sub(r"[^a-zA-Z0-9\s-]", " ", text)
+
+    # ========================================================
+    # SYMPTOM MATCHING
+    # ========================================================
+
     for canonical, variants in SYNONYMS.items():
 
-        for v in variants:
+        all_variants = sorted(variants + [canonical], key=len, reverse=True)
 
-            if v.lower() in text:
+        for variant in all_variants:
 
-                found.append(canonical)
+            variant = variant.lower()
 
-    # direct column matching
-    for col in columns:
+            if variant in clean_text:
 
-        if col.lower() in text:
+                # ====================================================
+                # NEGATION CHECK
+                # ====================================================
 
-            found.append(col)
+                negated = False
 
-    return list(set(found))
+                negation_patterns = [
+                    f"no {variant}",
+                    f"not {variant}",
+                    f"without {variant}",
+                    f"do not have {variant}",
+                    f"don't have {variant}",
+                    f"not having {variant}",
+                    f"never had {variant}",
+                    f"no sign of {variant}",
+                    f"free from {variant}",
+                ]
+
+                for pattern in negation_patterns:
+
+                    if pattern in clean_text:
+
+                        negated = True
+                        break
+
+                if negated:
+                    continue
+
+                # ====================================================
+                # DEFAULT SEVERITY
+                # ====================================================
+
+                severity = 3
+
+                # ====================================================
+                # SEVERITY DETECTION
+                # ====================================================
+
+                for sev_value, sev_words in SEVERITY_MAP.items():
+
+                    sev_value = int(sev_value)
+
+                    for sev_word in sev_words:
+
+                        patterns = [
+                            f"{sev_word} {variant}",
+                            f"{variant} is {sev_word}",
+                            f"very {variant}",
+                            f"extremely {variant}",
+                            f"{variant} feels {sev_word}",
+                            f"{variant} seems {sev_word}",
+                            f"{variant} became {sev_word}",
+                            f"{variant} gets {sev_word}",
+                            f"{sev_word} {canonical}",
+                        ]
+
+                        if any(p in clean_text for p in patterns):
+
+                            severity = sev_value
+
+                # ====================================================
+                # DUPLICATE / PARTIAL MATCH PREVENTION
+                # ====================================================
+
+                skip = False
+
+                for existing_symptom in extracted.keys():
+
+                    existing_clean = existing_symptom.lower()
+                    canonical_clean = canonical.lower()
+
+                    # Exact duplicate
+                    if existing_clean == canonical_clean:
+
+                        skip = True
+                        break
+
+                    # Existing symptom is MORE SPECIFIC
+                    # Example:
+                    # existing = "abdominal pain"
+                    # new = "pain"
+                    if canonical_clean in existing_clean:
+
+                        skip = True
+                        break
+
+                # IMPORTANT:
+                # THIS MUST BE OUTSIDE LOOP
+
+                if skip:
+                    continue
+
+                existing = extracted.get(canonical, 0)
+
+                extracted[canonical] = max(existing, severity)
+       
+    # ========================================================
+    # DIRECT COLUMN MATCHING
+    # ========================================================
+    sorted_columns = sorted(columns, key=len, reverse=True)
+
+    for col in sorted_columns:
+        col_clean = col.lower()
+        if col_clean in clean_text:
+
+            negated = False
+
+            negation_patterns = [
+                f"no {col_clean}",
+                f"not {col_clean}",
+                f"without {col_clean}",
+                f"do not have {col_clean}",
+                f"don't have {col_clean}",
+                f"not having {col_clean}",
+                f"never had {col_clean}",
+                f"free from {col_clean}",
+            ]
+
+            for pattern in negation_patterns:
+
+                if pattern in clean_text:
+
+                    negated = True
+                    break
+
+            if negated:
+                continue
+            skip = False
+
+            for existing in extracted.keys():
+
+                existing_clean = existing.lower()
+
+                # exact duplicate
+                # Existing symptom already contains this meaning
+                if (
+                    col_clean in existing_clean
+                    or existing_clean in col_clean
+                ):
+                    skip = True
+                    break
 
 
-def hybrid_predict(symptom_severity):
-    # build user vector in the same order as columns
-    user_vector = np.zeros(len(columns))
-    for i, col in enumerate(columns):
-        if col in symptom_severity:
-            user_vector[i] = float(symptom_severity[col])
+                # existing symptom is more specific
+                # e.g. abdominal pain > pain
+                if col_clean in existing_clean:
 
-    # 0–5 -> 0–1
-    user_vector = user_vector / 5.0
+                    skip = True
+                    break
 
-    # ANN
-    scaled_vector = scaler.transform([user_vector])
-    ann_probs = ann_model.predict_proba(scaled_vector)[0]
+            if skip:
+                continue
 
-    # fuzzy scores from prototype DataFrame
-    prototype_df = disease_prototypes.copy()
+            extracted[col_clean] = 3
+    return extracted
 
-    # make sure columns are aligned
-    if "disease_english" not in prototype_df.columns:
-        raise ValueError("disease_prototypes.pkl must contain 'disease_english'")
 
-    similarity_scores = {}
+# =========================================================
+# HYBRID PREDICTION V2
+# =========================================================
 
-    for disease, disease_rows in prototype_df.groupby("disease_english"):
-        disease_vectors = disease_rows[columns].astype(float).values / 5.0
 
-        best_score = 0.0
-        for disease_vector in disease_vectors:
-            weighted_match = (user_vector ** 2) * disease_vector
-            fuzzy_score = float(np.sum(weighted_match))
-
-            if fuzzy_score > best_score:
-                best_score = fuzzy_score
-
-        similarity_scores[disease] = best_score
+def hybrid_predict_v2(user_symptoms):
 
     results = []
-    num_classes = min(
-        len(label_encoder.classes_),
-        len(ann_probs)
-    )
-    
-    for idx in range(num_classes):
-    
-        disease = label_encoder.classes_[idx]
-    
-        ann_score = float(ann_probs[idx])
-        fuzzy_score = float(similarity_scores.get(disease, 0.0))
-        final_score = 0.1 * ann_score + 0.9 * fuzzy_score
 
-        results.append({
-            "disease": disease,
-            "ann_score": round(ann_score, 4),
-            "fuzzy_score": round(fuzzy_score, 4),
-            "final_score": round(final_score, 4),
-        })
+    # =====================================================
+    # NORMALIZE INPUT
+    # =====================================================
 
-    results.sort(key=lambda x: x["final_score"], reverse=True)
+    normalized_input = {}
 
-    max_score = results[0]["final_score"] if results else 1.0
-    for r in results:
-        r["confidence"] = round((r["final_score"] / max_score) * 100, 2)
+    for symptom, severity in user_symptoms.items():
 
-    return results[:5]
+        symptom = symptom.strip().lower()
 
-def get_questions(disease):
-    return QUESTIONS.get(disease.lower(), [])
+        severity = float(severity)
 
+        severity = max(0, min(severity, 5))
 
-def get_solution(disease):
-    row = df[df["Disease_English"].str.contains(disease, case=False, na=False)]
+        normalized_input[symptom] = severity
 
-    if row.empty:
-        return {}
+    # =====================================================
+    # SCORE EACH DISEASE
+    # =====================================================
 
-    row = row.iloc[0]
+    for disease, profile in disease_profiles.items():
+
+        total_score = 0
+
+        matched_score = 0
+
+        penalty_score = 0
+
+        matched_symptoms = []
+
+        hallmark_total = 0
+
+        hallmark_matched = 0
+
+        # =================================================
+        # SYMPTOM MATCHING
+        # =================================================
+
+        for symptom, disease_weight in profile.items():
+
+            rarity = symptom_rarity.get(symptom, 1)
+
+            user_severity = normalized_input.get(symptom, 0)
+
+            # =============================================
+            # SEVERITY ALIGNMENT
+            # =============================================
+
+            alignment = 1 - abs(user_severity - disease_weight) / 5
+
+            alignment = max(alignment, 0)
+
+            # =============================================
+            # CORE MATCH SCORE
+            # =============================================
+
+            symptom_score = user_severity * disease_weight * rarity * alignment
+            # =============================================
+            # HALLMARK BOOST
+            # =============================================
+
+            if disease_weight >= 4:
+
+                hallmark_total += 1
+
+                symptom_score *= 1.3
+
+                if user_severity > 0:
+
+                    hallmark_matched += 1
+            # =============================================
+            # CONTRADICTION PENALTY
+            # =============================================
+
+            if disease_weight >= 4 and user_severity == 0:
+
+                penalty_score += disease_weight * rarity * 1.2
+            # =============================================
+            # POSITIVE MATCH
+            # =============================================
+
+            if user_severity > 0:
+
+                matched_score += symptom_score
+
+                matched_symptoms.append(
+                    {
+                        "symptom": symptom,
+                        "user_severity": user_severity,
+                        "disease_weight": disease_weight,
+                        "score": round(symptom_score, 2),
+                    }
+                )
+        # =================================================
+        # HALLMARK COVERAGE
+        # =================================================
+
+        if hallmark_total > 0:
+
+            coverage_score = hallmark_matched / hallmark_total
+
+        else:
+
+            coverage_score = 0
+        # =================================================
+        # FINAL SCORE
+        # =================================================
+
+        symptom_match_count = len(matched_symptoms)
+
+        match_factor = min(symptom_match_count / 3, 1)
+
+        total_score = (
+            matched_score * (1 + coverage_score) * match_factor
+        ) - penalty_score
+
+        total_score = max(total_score, 0)
+
+        results.append(
+            {
+                "disease": disease,
+                "score": round(total_score, 2),
+                "coverage": round(coverage_score, 2),
+                "matched_symptoms": matched_symptoms,
+            }
+        )
+    # =====================================================
+    # SORT RESULTS
+    # =====================================================
+    results = sorted(results, key=lambda x: x["score"], reverse=True)
+    # =====================================================
+    # CONFIDENCE CALCULATION
+    # =====================================================
+    if not results:
+
+        return {
+            "top_predictions": [],
+            "follow_up_needed": False,
+            "follow_up_context": {},
+        }
+
+    max_score = results[0]["score"]
+
+    for result in results:
+        confidence = (result["score"] / (max_score + 1e-8)) * 100
+        # ================================================
+        # LOW INPUT PENALTY
+        # ================================================
+        symptom_factor = min(len(normalized_input) / 7, 1)
+        confidence *= symptom_factor
+        confidence = max(0, min(confidence, 100))
+        result["confidence"] = round(confidence, 2)
+    # =====================================================
+    # AMBIGUITY DETECTION
+    # =====================================================
+    follow_up_needed = False
+    follow_up_context = {}
+    if len(results) >= 2:
+
+        top_1 = results[0]
+        top_2 = results[1]
+        score_gap = top_1["confidence"] - top_2["confidence"]
+        if score_gap < 10 or top_1["confidence"] < 60:
+            follow_up_needed = True
+        disease_1_profile = disease_profiles[top_1["disease"]]
+        disease_2_profile = disease_profiles[top_2["disease"]]
+        candidate_questions = []
+        all_symptoms = set(disease_1_profile.keys()).union(disease_2_profile.keys())
+        for symptom in all_symptoms:
+            w1 = disease_1_profile.get(symptom, 0)
+            w2 = disease_2_profile.get(symptom, 0)
+            difference = abs(w1 - w2)
+            if difference >= 3 and symptom not in normalized_input:
+                candidate_questions.append(
+                    {"symptom": symptom, "difference": difference}
+                )
+        candidate_questions = sorted(
+            candidate_questions, key=lambda x: x["difference"], reverse=True
+        )
+        follow_up_context = {
+            "top_disease": top_1["disease"],
+            "second_disease": top_2["disease"],
+            "questions": candidate_questions[:5],
+        }
 
     return {
-        "remedies": row.get("Remedies", ""),
-        "diet": row.get("Diet", ""),
-        "lifestyle": row.get("Lifestyle", "")
+        "top_predictions": results[:5],
+        "follow_up_needed": follow_up_needed,
+        "follow_up_context": follow_up_context,
     }
 
 
+def get_solution(disease):
+
+    return metadata.get(disease, {})
+
+
 # ===== MAIN API =====
+
 
 @app.post("/predict")
 def predict(data: Input):
@@ -268,26 +627,100 @@ def predict(data: Input):
     counts = context.get("disease_counts", {})
     round_ = context.get("round", 0)
     last_symptom = context.get("last_symptom", "")
+    extracted_data = {}
 
     intent = detect_intent(user_input)
 
     if intent == "yes":
-        symptoms = list(set(symptoms + [last_symptom]))
+        if last_symptom:
+
+            symptoms = list(set(symptoms + [last_symptom]))
 
     elif intent == "no":
         pass
 
     else:
-        new_symptoms = extract_symptoms(user_input)
+        extracted_data = extract_symptoms(user_input)
+
+        print("\nExtracted Data:")
+        print(extracted_data)
+
+        new_symptoms = list(extracted_data.keys())
+
         symptoms = list(set(symptoms + new_symptoms))
 
-    if not symptoms:
+        # ====================================================
+    # INVALID YES/NO SAFETY
+    # ====================================================
+
+    if (
+        intent in ["yes", "no"]
+        and not last_symptom
+        and len(extract_symptoms(user_input)) == 0
+    ):
+
         return {
-            "type": "clarification",
-            "message": "Please describe your symptoms clearly."
+            "type": "conversation",
+            "message": (
+                "Could you describe your symptoms or concerns in a little more detail?"
+            ),
+        }
+
+    medical_words = [      
+
+        "pain",
+        "fever",
+        "itch",
+        "itchy",
+        "swelling",
+        "swollen",
+        "redness",
+        "red",
+        "vomiting",
+        "cough",
+        "burning",
+        "discharge",
+        "rash",
+        "infection",
+        "nausea",
+        "headache",
+        "dizziness",
+        "fatigue",
+        "weakness",
+        "blisters",
+        "pus",
+        "eye",
+        "eyes"
+    ]      
+
+    possible_medical = any(
+        word in user_input.lower()
+        for word in medical_words
+    )      
+
+    if not symptoms:       
+
+        if possible_medical:       
+
+            return {
+                "type": "clarification",
+                "message": (
+                    "I understand you're experiencing some symptoms. "
+                    "Could you describe them in a little more detail?"
+                ),
+            }      
+
+        return {
+            "type": "conversation",
+            "message": generate_conversation_reply(user_input),
         }
 
     severity = data.severity or {}
+    for symptom, sev in extracted_data.items():
+
+        existing = severity.get(symptom, 0)
+
+        severity[symptom] = max(existing, sev)
 
     symptom_severity = {}
 
@@ -295,16 +728,78 @@ def predict(data: Input):
 
         symptom_severity[s] = severity.get(s, 3)
 
-    results = hybrid_predict(
-        symptom_severity
-    )
+    results = hybrid_predict_v2(symptom_severity)
 
-    top = results[0]
+    if not results["top_predictions"]:
+
+        return {
+            "type": "clarification",
+            "message": "I could not confidently identify symptoms. Please describe them in more detail.",
+        }
+
+    top = results["top_predictions"][0]
     top_disease = top["disease"]
+    counts[top_disease] = counts.get(top_disease, 0) + 1
     confidence = top["confidence"]
+    # ===== QUESTION FLOW =====
 
-    # ===== FINAL CONDITIONS =====
-    if round_ >= 5 or counts.get(top_disease, 0) >= 3:
+    if results["follow_up_needed"] or confidence < 60:
+
+        questions = results["follow_up_context"]["questions"]
+
+        if questions:
+
+            selected = questions[0]
+
+            asked.append(selected["symptom"])
+
+            display_symptom = DISPLAY_NAMES.get(
+                selected["symptom"],
+                selected["symptom"]
+            )
+            
+            display_symptom = (
+                display_symptom
+                .replace("_", " ")
+                .replace("-", " ")
+            )
+            
+            question_text = (
+                f"Are you also experiencing {display_symptom}?"
+            )
+            
+            return {
+                "type": "follow_up",
+                "context_mode": "follow_up",
+                "question": question_text,
+                "context": {
+                    "symptoms": symptoms,
+                    "asked": asked,
+                    "round": round_ + 1,
+                    "last_symptom": selected["symptom"],
+                    "disease_counts": counts,
+                },
+            }
+        else:
+
+            return {
+                "type": "follow_up",
+                "context_mode": "follow_up",
+                "question": (
+                    "Could you describe any other symptoms you're experiencing?"
+                ),
+                "context": {
+                    "symptoms": symptoms,
+                    "asked": asked,
+                    "round": round_ + 1,
+                    "last_symptom": "",
+                    "disease_counts": counts,
+                },
+            }
+        # ====================================================
+        # FALLBACK FINALIZATION
+        # ====================================================
+
         sol = get_solution(top_disease)
 
         return {
@@ -317,55 +812,37 @@ def predict(data: Input):
                 symptoms,
                 sol.get("remedies", ""),
                 sol.get("diet", ""),
-                sol.get("lifestyle", "")
+                sol.get("lifestyle", ""),
             ),
             "remedies": sol.get("remedies", ""),
             "diet": sol.get("diet", ""),
-            "lifestyle": sol.get("lifestyle", "")
+            "lifestyle": sol.get("lifestyle", ""),
         }
 
-    # ===== QUESTION FLOW =====
-    questions = get_questions(top_disease)
+    # ===== FINAL CONDITIONS =====
 
-    remaining = []
+    should_finalize = (
+        confidence >= 70
+        or (round_ >= 5 and confidence >= 50)
+        or (counts.get(top_disease, 0) >= 3 and confidence >= 60)
+    )
 
-    for q in questions:
-        s = q["symptom"]
-
-        if s in asked:
-            continue
-
-        if s in symptoms:
-            continue
-
-        remaining.append(q)
-
-    if not remaining:
+    if should_finalize:
         sol = get_solution(top_disease)
 
         return {
             "type": "final_answer",
             "disease": top_disease,
             "confidence": confidence,
-            "message": f"Most likely: {top_disease}",
+            "message": generate_ai_response(
+                top_disease,
+                confidence,
+                symptoms,
+                sol.get("remedies", ""),
+                sol.get("diet", ""),
+                "" if sol.get("lifestyle") == "nan" else sol.get("lifestyle", ""),
+            ),
             "remedies": sol.get("remedies", ""),
             "diet": sol.get("diet", ""),
-            "lifestyle": sol.get("lifestyle", "")
+            "lifestyle": sol.get("lifestyle", ""),
         }
-
-    selected = random.choice(remaining)
-
-    asked.append(selected["symptom"])
-    counts[top_disease] = counts.get(top_disease, 0) + 1
-
-    return {
-        "type": "follow_up",
-        "question": selected["question"],
-        "context": {
-            "symptoms": symptoms,
-            "asked": asked,
-            "disease_counts": counts,
-            "round": round_ + 1,
-            "last_symptom": selected["symptom"]
-        }
-    }

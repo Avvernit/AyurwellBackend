@@ -49,7 +49,16 @@
         "my stomach hurts", "pain in my stomach", "i have stomach pain",
         "my belly is hurting", "pain in my abdomen", "stomach is paining",
         "my lower stomach hurts", "pain in belly area",
-        "my stomach is hurting badly", "stomach pain is there"
+        "my stomach is hurting badly", "stomach pain is there",
+        "stomach pain",
+        "stomach ache",
+        "stomach cramps",
+        "belly pain",
+        "abdomen pain"
+    ],
+    "thoracic pain": [
+    "chest pain",
+    "pain in chest"
     ],
 
     "severe abdominal pain": [
@@ -297,5 +306,48 @@
         "body weight is decreasing", "unintentional weight loss",
         "becoming skinny", "weight dropping fast",
         "losing body weight"
-    ]
+    ],
+    "vesicles": [
+    "blister",
+    "blisters",
+    "fluid filled blister",
+    "skin blister"
+],
+"skin discolouration": [
+    "skin discoloration",
+    "discoloration",
+    "dark skin",
+    "skin darkening",
+    "skin colour change",
+    "skin color change"
+],
+"eye redness": [
+    "red eyes",
+    "eye redness",
+    "red eye",
+    "bloodshot eyes"
+],
+
+"eye swelling": [
+    "swollen eyes",
+    "eye swelling",
+    "puffy eyes",
+    "swollen eyelids"
+],
+
+"itching": [
+    "itchy eyes",
+    "itching",
+    "itchiness",
+    "eye itching"
+],
+
+"eye discharge": [
+    "eye discharge",
+    "discharge from eyes",
+    "sticky eyes",
+    "watery discharge",
+    "pus from eye"
+]
+
 }
