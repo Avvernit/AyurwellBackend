@@ -767,7 +767,7 @@ def predict(data: Input):
             if s not in symptoms:
                 symptoms.append(s)  
                 
-        iif not collecting_done and len(symptoms) <= 2:     
+        if not collecting_done and len(symptoms) <= 2:     
 
             return {
                 "type": "follow_up",
