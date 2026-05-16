@@ -27,6 +27,7 @@ DISPLAY_NAMES = {
     "nausea": "feeling nauseous",
     "abdominal pain": "stomach pain",
     "thoracic pain": "chest pain",
+    "asthenia": "weakness or low energy",
 }
 
 
@@ -522,11 +523,23 @@ def hybrid_predict_v2(user_symptoms):
 
         symptom_match_count = len(matched_symptoms)
 
+        # =================================================
+        # MINIMUM MATCH REQUIREMENT
+        # =================================================
+
         match_factor = min(symptom_match_count / 3, 1)
 
         total_score = (
             matched_score * (1 + coverage_score) * match_factor
         ) - penalty_score
+
+        if symptom_match_count <= 1:
+
+            total_score *= 0.1
+
+        elif symptom_match_count == 2:
+
+            total_score *= 0.4
 
         total_score = max(total_score, 0)
 
@@ -595,6 +608,7 @@ def hybrid_predict_v2(user_symptoms):
             "top_disease": top_1["disease"],
             "second_disease": top_2["disease"],
             "questions": candidate_questions[:5],
+            "severity": severity,
         }
 
     return {
@@ -624,6 +638,31 @@ def predict(data: Input):
     round_ = context.get("round", 0)
     last_symptom = context.get("last_symptom", "")
     extracted_data = {}
+    severity = data.severity or {}
+
+    severity_match = re.search(r"\b([1-5])\b", user_input)
+
+    if context.get("awaiting_severity") and severity_match:
+
+        sev_value = int(severity_match.group(1))
+
+        symptom = context.get("last_symptom")
+
+        severity = context.get("severity", {})
+
+        severity[symptom] = sev_value
+
+        context["severity"] = severity
+
+        symptoms = context.get("symptoms", [])
+
+        symptom_severity = {}
+
+        for s in symptoms:
+            symptom_severity[s] = severity.get(s, 3)
+
+        results = hybrid_predict_v2(symptom_severity)
+        context["awaiting_severity"] = False
 
     intent = detect_intent(user_input)
 
@@ -644,7 +683,36 @@ def predict(data: Input):
 
         new_symptoms = list(extracted_data.keys())
 
-        symptoms = list(set(symptoms + new_symptoms))
+        # ====================================================
+        # ASK FOR MISSING SEVERITY
+        # ====================================================
+
+        for symptom in new_symptoms:
+
+            if symptom not in severity:
+
+                display_symptom = DISPLAY_NAMES.get(symptom, symptom)
+
+                return {
+                    "type": "severity_followup",
+                    "question": (
+                        f"On a scale of 1 to 5, how severe is your {display_symptom}?"
+                    ),
+                    "context": {
+                        "symptoms": symptoms,
+                        "asked": asked,
+                        "round": round_,
+                        "last_symptom": symptom,
+                        "awaiting_severity": True,
+                        "disease_counts": counts,
+                        "severity": severity,
+                    },
+                }
+
+        for s in new_symptoms:
+
+            if s not in symptoms:
+                symptoms.append(s)
 
         # ====================================================
     # INVALID YES/NO SAFETY
@@ -737,7 +805,7 @@ def predict(data: Input):
     # ===== QUESTION FLOW =====
 
     if results["follow_up_needed"] or confidence < 60:
-
+        
         questions = results["follow_up_context"].get("questions", [])
 
         # ==========================================
@@ -764,79 +832,47 @@ def predict(data: Input):
         # ASK NEXT VALID QUESTION
         # ==========================================
 
-            if filtered_questions:
-            
-                selected = filtered_questions[0]
-            
-                asked.append(selected["symptom"])
-            
-                display_symptom = DISPLAY_NAMES.get(
-                    selected["symptom"],
-                    selected["symptom"]
-                )
-            
-                display_symptom = (
-                    display_symptom
-                    .replace("_", " ")
-                    .replace("-", " ")
-                )
-            
-                question_text = (
-                    f"Are you also experiencing {display_symptom}?"
-                )
-            
-                return {
-                    "type": "follow_up",
-                    "context_mode": "follow_up",
-                    "question": question_text,
-                    "context": {
-                        "symptoms": symptoms,
-                        "asked": asked,
-                        "round": round_ + 1,
-                        "last_symptom": selected["symptom"],
-                        "disease_counts": counts,
-                    },
-                }
-            
-            else:
-            
-                return {
-                    "type": "follow_up",
-                    "context_mode": "follow_up",
-                    "question": (
-                        "Could you describe any other symptoms you're experiencing?"
-                    ),
-                    "context": {
-                        "symptoms": symptoms,
-                        "asked": asked,
-                        "round": round_ + 1,
-                        "last_symptom": "",
-                        "disease_counts": counts,
-                    },
-                }
+        if filtered_questions:
 
-        # ====================================================
-        # FALLBACK FINALIZATION
-        # ====================================================
+            selected = filtered_questions[0]
+            asked.append(selected["symptom"])
+            display_symptom = DISPLAY_NAMES.get(
+                selected["symptom"], selected["symptom"]
+            )
+            display_symptom = display_symptom.replace("_", " ").replace("-", " ")
+            question_text = f"Are you also experiencing {display_symptom}?"
+            return {
+                "type": "follow_up",
+                "context_mode": "follow_up",
+                "question": question_text,
+                "context": {
+                    "symptoms": symptoms,
+                    "asked": asked,
+                    "round": round_ + 1,
+                    "last_symptom": selected["symptom"],
+                    "disease_counts": counts,
+                    "severity": severity,
+                },
+            }
+        else:
 
-        sol = get_solution(top_disease)
+            return {
+                "type": "follow_up",
+                "context_mode": "follow_up",
+                "question": (
+                    "Could you describe any other symptoms you're experiencing?"
+                ),
+                "context": {
+                    "symptoms": symptoms,
+                    "asked": asked,
+                    "round": round_ + 1,
+                    "last_symptom": "",
+                    "disease_counts": counts,
+                    "severity": severity,
+                },
+            }
 
-        return {
-            "type": "final_answer",
-            "disease": top_disease,
-            "confidence": confidence,
-            "message": generate_ai_response(
-                top_disease,
-                confidence,
-                symptoms,
-                sol.get("remedies", ""),
-                sol.get("diet", ""),
-                sol.get("lifestyle", ""),
-            ),
-            "remedies": sol.get("remedies", ""),
-            "diet": sol.get("diet", ""),
-            "lifestyle": sol.get("lifestyle", ""),
-        }
+        
 
     # ===== FINAL CONDITIONS =====
 
